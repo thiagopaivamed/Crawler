@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Graficos";
+}
+
+<div class="container">
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-md-10">
+            @Html.DropDownList("CategoriaId", null, htmlAttributes: new { @id = "categorias" })
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="container" id="divGraficos">
+    <div id="grafico" style="width: 90%; height: auto"></div>
+</div>
+
