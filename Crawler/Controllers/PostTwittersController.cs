@@ -17,6 +17,7 @@ namespace Crawler.Controllers
         private const int tweetsPorPagina = 500;
 
         public PostTwittersController() { }
+
         public PostTwittersController(PostTwitterRepository _postTwitterRepository, 
                                       TwitterServiceRepository _twitterServiceRepository,
                                       CategoriaRepository _categoriaRepository,

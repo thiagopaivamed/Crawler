@@ -7,11 +7,11 @@
     ViewBag.Title = "Coletor";
 }
 
-<div class="container">
+<div>
     <br />
     <br />
 
-    <div class="row">
+    <div>
         @using (Ajax.BeginForm("Procurar", "PostTwitters", new AjaxOptions { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "divTweets"}))
         {
             <div class="form-group col-md-4">

@@ -19,6 +19,7 @@ html {
 }
 body {
   margin: 0;
+  background-color: #ecf0f1 !important;
 }
 article,
 aside,
@@ -1591,6 +1592,7 @@ pre code {
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
+  background-color: white !important;
 }
 @media (min-width: 768px) {
   .container {
@@ -4550,7 +4552,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   text-align: center;
   background-color: #333333;
   border-top: 5px solid #7f8c8d !important;
-  min-height: 60px !important;  
+  min-height: 60px !important;
 }
 .navbar-default .navbar-brand {
   color: #ffffff;
