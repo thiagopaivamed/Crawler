@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace Crawler.Models
+namespace Crawler.BLL.Models
 {
     public class Categoria
     {
@@ -11,6 +11,6 @@ namespace Crawler.Models
         public string Nome { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<PostTwitter> PostTwitters  { get; set; }
+        public virtual ICollection<PostTwitter> PostTwitters { get; set; }
     }
 }

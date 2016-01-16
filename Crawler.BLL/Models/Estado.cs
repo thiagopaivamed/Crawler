@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Crawler.Models
+namespace Crawler.BLL.Models
 {
     public class Estado
     {

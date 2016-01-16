@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace Crawler.Models
+namespace Crawler.BLL.Models
 {
     public class CrawlerDB : DbContext
     {

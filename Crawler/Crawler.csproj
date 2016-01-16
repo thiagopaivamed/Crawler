@@ -52,8 +52,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
@@ -135,16 +135,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\PostTwittersController.cs" />
-    <Compile Include="DAL\IPostTwitterRepository.cs" />
-    <Compile Include="DAL\PostTwitterRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Categoria.cs" />
-    <Compile Include="Models\Estado.cs" />
-    <Compile Include="Models\CrawlerDB.cs" />
-    <Compile Include="Models\DadosGrafico.cs" />
-    <Compile Include="Models\PostTwitter.cs" />
+    <Compile Include="ViewModels\DadosGrafico.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -284,6 +278,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Crawler.BLL\Crawler.BLL.csproj">
+      <Project>{0a0a46fb-987c-45e9-aa6c-f8fa7a4c43f7}</Project>
+      <Name>Crawler.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crawler.DAL\Crawler.DAL.csproj">
+      <Project>{68542a42-ef68-4c71-bf61-e1dd250e31ed}</Project>
+      <Name>Crawler.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
-namespace Crawler.Models
+namespace Crawler.BLL.Models
 {
     public class PostTwitter
     {

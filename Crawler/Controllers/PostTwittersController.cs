@@ -1,28 +1,38 @@
-﻿using Crawler.DAL;
+﻿using Crawler.BLL.Models;
+using Crawler.DAL.Repositories;
 using Crawler.Models;
 using System;
 using System.Web.Mvc;
 using PagedList;
 
+
 namespace Crawler.Controllers
 {
     public class PostTwittersController : Controller
     {
-
+        private TwitterServiceRepository twitterServiceRepository = new TwitterServiceRepository();
         private PostTwitterRepository postTwitterRepository = new PostTwitterRepository();
+        private CategoriaRepository categoriaRepository = new CategoriaRepository();
+        private EstadoRepository estadoRepository = new EstadoRepository();
         private const int tweetsPorPagina = 500;
 
         public PostTwittersController() { }
-        public PostTwittersController(PostTwitterRepository postTwitterRepository)
+        public PostTwittersController(PostTwitterRepository _postTwitterRepository, 
+                                      TwitterServiceRepository _twitterServiceRepository,
+                                      CategoriaRepository _categoriaRepository,
+                                      EstadoRepository _estadoRepository)
         {
-            this.postTwitterRepository = postTwitterRepository;
+            postTwitterRepository = _postTwitterRepository;
+            twitterServiceRepository = _twitterServiceRepository;
+            categoriaRepository = _categoriaRepository;
+            estadoRepository = _estadoRepository;
         }
 
         // GET: PostTwitters
         public ActionResult Index(int? pagina)
         {
             int numeroPagina = pagina ?? 1;
-            ViewBag.EstadoId = new SelectList(postTwitterRepository.GetAllStates(), "EstadoId", "Nome");
+            ViewBag.EstadoId = new SelectList(estadoRepository.GetAllStates(), "EstadoId", "Nome");
             return View(postTwitterRepository.GetAll().ToPagedList(numeroPagina, tweetsPorPagina));
         }
         
@@ -31,12 +41,12 @@ namespace Crawler.Controllers
             PostTwitter postTwitter = new PostTwitter();
             Categoria categoria = new Categoria();
             int estadoId = Convert.ToInt32(Request["EstadoId"]);
-            string estado = postTwitterRepository.GetStatebyId(estadoId);
-            var service = postTwitterRepository.ConfigureService();
+            string estado = estadoRepository.GetStatebyId(estadoId);
+            var service = twitterServiceRepository.ConfigureService();
             int numeroPagina = pagina ?? 1;
             int categoriaId;
 
-            ViewBag.EstadoId = new SelectList(postTwitterRepository.GetAllStates(), "EstadoId", "Nome");
+            ViewBag.EstadoId = new SelectList(estadoRepository.GetAllStates(), "EstadoId", "Nome");
            
 
             if (string.IsNullOrEmpty(termo))
@@ -47,10 +57,10 @@ namespace Crawler.Controllers
                 return View("Index", postTwitterRepository.GetAll());
             }
 
-            if (postTwitterRepository.CheckIfExists(termo))
+            if (categoriaRepository.CheckIfExists(termo))
             {
-                var tweets = postTwitterRepository.Search(service, termo + " " + estado);
-                categoriaId = postTwitterRepository.GetId(termo);
+                var tweets = twitterServiceRepository.Search(service, termo + " " + estado);
+                categoriaId = categoriaRepository.GetId(termo);
                 foreach (var tweet in tweets)
                 {
                     postTwitter.NomeUsuario = tweet.User.ScreenName;
@@ -64,10 +74,10 @@ namespace Crawler.Controllers
 
             else
             {
-                var tweets = postTwitterRepository.Search(service, termo + " " + estado);
+                var tweets = twitterServiceRepository.Search(service, termo + " " + estado);
                 categoria.Nome = termo;
-                postTwitterRepository.SaveCategory(categoria);
-                categoriaId = postTwitterRepository.GetId(termo);
+                categoriaRepository.SaveCategory(categoria);
+                categoriaId = categoriaRepository.GetId(termo);
 
                 foreach (var tweet in tweets)
                 {
@@ -88,7 +98,7 @@ namespace Crawler.Controllers
         [HttpGet]
         public ActionResult Graficos()
         {
-            ViewBag.CategoriaId = new SelectList(postTwitterRepository.GetAllCategories(), "CategoriaId", "Nome");
+            ViewBag.CategoriaId = new SelectList(categoriaRepository.GetAllCategories(), "CategoriaId", "Nome");
             return View();
         }
 
@@ -98,13 +108,13 @@ namespace Crawler.Controllers
 
             if (string.IsNullOrEmpty(categoria))
             {
-                dadosGraficos.Quantidade = postTwitterRepository.GetTotalByCategory("Assalto");
-                dadosGraficos.Siglas = postTwitterRepository.GetStatesAcronymsByCategory("Assalto");
+                dadosGraficos.Quantidade = categoriaRepository.GetTotalByCategory("Assalto");
+                dadosGraficos.Siglas = estadoRepository.GetStatesAcronymsByCategory("Assalto");
             }
             else
             {
-                dadosGraficos.Quantidade = postTwitterRepository.GetTotalByCategory(categoria);
-                dadosGraficos.Siglas = postTwitterRepository.GetStatesAcronymsByCategory(categoria);
+                dadosGraficos.Quantidade = categoriaRepository.GetTotalByCategory(categoria);
+                dadosGraficos.Siglas = estadoRepository.GetStatesAcronymsByCategory(categoria);
             }
             
             return Json(dadosGraficos, JsonRequestBehavior.AllowGet);
@@ -115,7 +125,7 @@ namespace Crawler.Controllers
         public ActionResult GetCategories()
         {
 
-            return Json((postTwitterRepository.GetAllCategories()), JsonRequestBehavior.AllowGet);
+            return Json((categoriaRepository.GetAllCategories()), JsonRequestBehavior.AllowGet);
 
         }
 
@@ -124,6 +134,9 @@ namespace Crawler.Controllers
             if (disposing)
             {
                 postTwitterRepository = null;
+                categoriaRepository = null;
+                estadoRepository = null;
+                twitterServiceRepository = null;
             }
             base.Dispose(disposing);
         }

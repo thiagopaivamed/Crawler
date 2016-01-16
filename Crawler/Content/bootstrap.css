@@ -1612,6 +1612,7 @@ pre code {
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
+
 }
 .row {
   margin-left: -15px;
@@ -4545,8 +4546,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
+  color: white;
+  text-align: center;
   background-color: #333333;
-  border-color: #222222;
+  border-top: 5px solid #7f8c8d !important;
+  min-height: 60px !important;  
 }
 .navbar-default .navbar-brand {
   color: #ffffff;
@@ -4642,13 +4646,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 .navbar-inverse {
   background-color: white;
-  border-top-color: transparent !important;
-  border-right-color: transparent !important;
-  border-left-color: transparent !important;
-  border-bottom-color: #008cba !important;
-  border-bottom-width: 5px !important;
-  border-style: solid !important;
-
+  border-bottom: 5px solid #008cba !important;
 }
 .navbar-inverse .navbar-brand {
   color: #ffffff;
@@ -7112,10 +7110,4 @@ input[type="checkbox"] {
 }
 .modal .close {
   color: #222222;
-}
-
-.bot {
-  background-color: #2980b9 !important;
-  color: white;
-  border-color: #2980b9 !important;
 }
