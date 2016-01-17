@@ -5,7 +5,6 @@ using System;
 using System.Web.Mvc;
 using PagedList;
 
-
 namespace Crawler.Controllers
 {
     public class PostTwittersController : Controller

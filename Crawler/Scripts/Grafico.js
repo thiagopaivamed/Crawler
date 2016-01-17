@@ -15,16 +15,14 @@
 
     function GerarGrafico(quantidade, siglas) {
         $.jqplot('grafico', [quantidade], {
-            seriesColors: ["#3498db"],
+            seriesColors: ["#95a5a6"],
             animate: true,
-            title: '<h5>Assalto no Brasil</h5>',
+            title: '<h4><strong>Assalto no Brasil</strong></h4>',
             
             grid:
             {
-                drawGridLines: true,
-                gridLineColor: 'white',
-                background: 'white',
-                borderColor: 'white',
+                drawBorder: false,
+                borderWidth: 0,
                 shadow: false
             },
             
@@ -70,7 +68,14 @@
                 xaxis:
                 {
                     renderer: $.jqplot.CategoryAxisRenderer,
+                    drawMajorGridlines: false,
                     ticks: siglas
+                }
+            },
+            axesDefaults: {
+                rendererOptions: {
+                    baselineWidth: 1.5,
+                    drawBaseline: false
                 }
             },
             

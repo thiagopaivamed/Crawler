@@ -1593,6 +1593,7 @@ pre code {
   padding-left: 15px;
   padding-right: 15px;
   background-color: white !important;
+  border-radius: 10px;
 }
 @media (min-width: 768px) {
   .container {
