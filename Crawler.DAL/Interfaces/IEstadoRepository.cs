@@ -22,5 +22,12 @@ namespace Crawler.DAL.Interfaces
         IEnumerable<int> GetTotal();
 
         IEnumerable<string> GetStatesAcronymsByCategory(string categoria);
+
+        IEnumerable<int> GetStatesCodesByCategory(string categoria);
+
+        IEnumerable<int> GetTotalByCode(int codigo);
+
+        IEnumerable<string> GetCategoryByCode(int codigo);
+
     }
 }

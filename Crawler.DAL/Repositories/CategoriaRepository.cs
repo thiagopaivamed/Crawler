@@ -126,5 +126,29 @@ namespace Crawler.DAL.Repositories
                 crawlerDB = null;
             }
         }
+
+        public int GetTotal(string categoria)
+        {
+            crawlerDB = new CrawlerDB();
+
+            try
+            {
+                return
+                    crawlerDB.PostTwitters.Include(a => a.Categoria).Count(c => c.Categoria.Nome == categoria);
+
+            }
+
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+
+            finally
+            {
+                crawlerDB = null;
+            }
+
+
+        }
     }
 }

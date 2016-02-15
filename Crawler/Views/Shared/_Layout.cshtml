@@ -23,6 +23,7 @@
                 <ul class="nav navbar-nav" style="font-weight: bold;">
                     <li>@Html.ActionLink("Coletor", "Index", "PostTwitters")</li>
                     <li>@Html.ActionLink("Gráficos", "Graficos", "PostTwitters")</li>
+                    <li>@Html.ActionLink("Mapas", "Mapas", "PostTwitters")</li>
                 </ul>
             </div>
         </div>
@@ -42,6 +43,7 @@
     <br />
     <br />
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/Mapas")
     @Scripts.Render("~/bundles/jqplotPlugins")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

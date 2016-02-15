@@ -1,7 +1,7 @@
 ﻿$(function () {
 
     $.jqplot.config.enablePlugins = true;
-    var url = '/PostTwitters/DadosGraficos';
+    var url = '/PostTwitters/GetGraphicData';
 
     $.ajax({
         url: url,

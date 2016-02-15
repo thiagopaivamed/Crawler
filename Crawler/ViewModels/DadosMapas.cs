@@ -2,10 +2,10 @@
 
 namespace Crawler.ViewModels
 {
-    public class DadosGrafico
+    public class DadosMapas
     {
-        public IEnumerable<string> Siglas { get; set; }
+        public IEnumerable<int> Codigos { get; set; }
         public IEnumerable<int> Quantidade { get; set; }
-
+        public int QuantidadeTotal { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿$("#categorias").on('change', function () {
     
     $.jqplot.config.enablePlugins = true;
-    var url = '/PostTwitters/DadosGraficos';
+    var url = '/PostTwitters/GetGraphicData';
     var categorias = $("#categorias option:selected").text();
     
     $.ajax({

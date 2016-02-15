@@ -18,5 +18,7 @@ namespace Crawler.DAL.Interfaces
         void SaveCategory(Categoria category);
 
         IEnumerable<int> GetTotalByCategory(string categoria);
+
+        int GetTotal(string categoria);
     }
 }

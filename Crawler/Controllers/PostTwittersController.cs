@@ -1,8 +1,8 @@
 ﻿using Crawler.BLL.Models;
 using Crawler.DAL.Repositories;
-using Crawler.Models;
 using System;
 using System.Web.Mvc;
+using Crawler.ViewModels;
 using PagedList;
 
 namespace Crawler.Controllers
@@ -95,6 +95,49 @@ namespace Crawler.Controllers
             return View("Index", postTwitterRepository.GetAll().ToPagedList(numeroPagina, tweetsPorPagina));
         }
 
+        public ActionResult Mapas()
+        {
+            ViewBag.CategoriasId = new SelectList(categoriaRepository.GetAllCategories(), "CategoriaId", "Nome");
+            return View();
+
+        }
+
+        public JsonResult GetMapData(string categoria)
+        {
+            DadosMapas dadosMapas = new DadosMapas();
+            
+            if (string.IsNullOrEmpty(categoria))
+            {
+                dadosMapas.Quantidade = categoriaRepository.GetTotalByCategory("Assalto");
+                dadosMapas.Codigos = estadoRepository.GetStatesCodesByCategory("Assalto");
+                dadosMapas.QuantidadeTotal = categoriaRepository.GetTotal("Assalto");
+            }
+
+            else
+            {
+                dadosMapas.Quantidade = categoriaRepository.GetTotalByCategory(categoria);
+                dadosMapas.Codigos = estadoRepository.GetStatesCodesByCategory(categoria);
+                dadosMapas.QuantidadeTotal = categoriaRepository.GetTotal(categoria);
+            }
+            
+
+            return Json(dadosMapas, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult GetViolenceData(int codigo)
+        {
+            DadosViolenciaGrafico dadosViolenciaGrafico = new DadosViolenciaGrafico();
+
+            dadosViolenciaGrafico.Quantidade = estadoRepository.GetTotalByCode(codigo);
+            dadosViolenciaGrafico.Categoria = estadoRepository.GetCategoryByCode(codigo);
+            dadosViolenciaGrafico.Estado = estadoRepository.GetStatebyId(codigo);
+
+            return Json(dadosViolenciaGrafico, JsonRequestBehavior.AllowGet);
+
+        }
+
+
         [HttpGet]
         public ActionResult Graficos()
         {
@@ -102,7 +145,7 @@ namespace Crawler.Controllers
             return View();
         }
 
-        public ActionResult DadosGraficos(string categoria)
+        public JsonResult GetGraphicData(string categoria)
         {
             DadosGrafico dadosGraficos = new DadosGrafico();
 

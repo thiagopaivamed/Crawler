@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Mapa Brasileiro";
+}
+
+<br/>
+
+<div class="container">
+    <div>
+        <br />
+        <br />
+
+        <div>
+            <div class="col-md-10">
+                @Html.DropDownList("CategoriasId", null, htmlAttributes: new { @id = "CategoriasViolencia" })
+            </div>
+        </div>
+    </div>
+
+    <div align="center">
+        <div id="MapaViolencia" style="width: 600px; height: 400px;"></div>
+    </div>
+    <br /><br /><br /><br />
+    
+    <div id="divGraficos">
+        <div id="GraficoViolencia" style="width: 90%; height: auto"></div>
+    </div>
+
+</div>

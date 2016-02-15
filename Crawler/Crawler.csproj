@@ -140,6 +140,8 @@
     </Compile>
     <Compile Include="ViewModels\DadosGrafico.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\DadosViolenciaGrafico.cs" />
+    <Compile Include="ViewModels\DadosMapas.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -151,6 +153,7 @@
     <Content Include="Content\easy-autocomplete.themes.css" />
     <Content Include="Content\easy-autocomplete.themes.min.css" />
     <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\jqvmap.css" />
     <Content Include="Content\nice-select.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
@@ -251,6 +254,10 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery.vmap.brazil.js" />
+    <Content Include="Scripts\jquery.vmap.js" />
+    <Content Include="Scripts\jquery.vmap.min.js" />
+    <Content Include="Scripts\Mapa.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -273,6 +280,7 @@
     <Content Include="Views\PostTwitters\Index.cshtml" />
     <Content Include="Views\PostTwitters\Graficos.cshtml" />
     <Content Include="Views\PostTwitters\Tweets.cshtml" />
+    <Content Include="Views\PostTwitters\Mapas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

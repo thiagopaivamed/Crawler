@@ -22,6 +22,12 @@ namespace Crawler
                 "~/Scripts/jquery.validate*"
                        ));
 
+            bundles.Add(new ScriptBundle("~/bundles/Mapas").Include(
+               "~/Scripts/jquery.vmap.min.js",
+               "~/Scripts/jquery.vmap.brazil.js",
+               "~/Scripts/Mapa.js"
+                      ));
+
             bundles.Add(new ScriptBundle("~/bundles/jqplotPlugins").Include(
                         "~/Scripts/jqplot/jquery.jqplot.min.js",
                         "~/Scripts/jqPlot/plugins/jqplot.barRenderer.min.js",
@@ -43,6 +49,7 @@ namespace Crawler
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/nice-select.css",
+                      "~/Content/jqvmap.css",
                       "~/Content/easy-autocomplete.css",
                       "~/Content/easy-autocomplete.themes.css",
                       "~/Scripts/jqPlot/jquery.jqplot.min.css",

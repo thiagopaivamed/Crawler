@@ -160,5 +160,77 @@ namespace Crawler.DAL.Repositories
                 crawlerDB = null;
             }
         }
+
+        public IEnumerable<int> GetStatesCodesByCategory(string categoria)
+        {
+            crawlerDB = new CrawlerDB();
+
+            try
+            {
+                return
+                    crawlerDB.PostTwitters.Include(a => a.Categoria)
+                        .Where(c => c.Categoria.Nome == categoria)
+                        .Select(p => p.Estado.EstadoId)
+                        .Distinct()
+                        .ToList();
+            }
+
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+
+            finally
+            {
+                crawlerDB = null;
+            }
+        }
+
+        public IEnumerable<int> GetTotalByCode(int codigo)
+        {
+            crawlerDB = new CrawlerDB();
+            try
+            {
+                return
+                    crawlerDB.PostTwitters.Include(a => a.Categoria)
+                        .Where(e => e.EstadoId == codigo)
+                        .GroupBy(c => c.Categoria.Nome)
+                        .Select(p => p.Count())
+                        .ToList();
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+
+            finally
+            {
+                crawlerDB = null;
+            }
+        }
+
+        public IEnumerable<string> GetCategoryByCode(int codigo)
+        {
+            crawlerDB = new CrawlerDB();
+            try
+            {
+                return
+                    crawlerDB.PostTwitters.Include(a => a.Categoria)
+                        .Where(e => e.EstadoId == codigo)
+                        .Select(p => p.Categoria.Nome)
+                        .Distinct()
+                        .ToList();
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+
+            finally
+            {
+                crawlerDB = null;
+            }
+        }
+
     }
 }
