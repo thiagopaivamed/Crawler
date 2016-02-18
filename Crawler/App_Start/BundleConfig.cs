@@ -14,6 +14,7 @@ namespace Crawler
                         "~/Scripts/Auto.js",
                         "~/Scripts/DropDownLists.js",
                         "~/Scripts/Grafico.js",
+                        "~/Scripts/GraficoLinha.js",
                         "~/Scripts/Graph.js"
                        ));
 
@@ -30,10 +31,17 @@ namespace Crawler
 
             bundles.Add(new ScriptBundle("~/bundles/jqplotPlugins").Include(
                         "~/Scripts/jqplot/jquery.jqplot.min.js",
+                        "~/Scripts/jqPlot/excanvas.min.js",
                         "~/Scripts/jqPlot/plugins/jqplot.barRenderer.min.js",
+                        "~/Scripts/jqPlot/plugins/jqplot.jqplot.BezierCurveRenderer.min.js",
+                        "~/Scripts/jqPlot/plugins/jqplot.jqplot.blockRenderer.min.js",
+                        "~/Scripts/jqPlot/plugins/jqplot.jqplot.bubbleRenderer.min.js",
                         "~/Scripts/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js",
-                        "~/Scripts/jqPlot/plugins/jqplot.canvasAxisLabelRenderer.min.js",
                         "~/Scripts/jqPlot/plugins/jqplot.dateAxisRenderer.minjs",
+                        "~/Scripts/jqPlot/plugins/jqplot.canvasTextRenderer.min.js",
+                        "~/Scripts/jqPlot/plugins/jqplot.canvasAxisLabelRenderer.min.js",
+                        "~/Scripts/jqPlot/plugins/jqplot.canvasAxisTickRenderer.min.js",
+                        "~/Scripts/jqPlot/plugins/jqplot.canvasOverlay.min.js",
                         "~/Scripts/jqPlot/plugins/jqplot.canvasTextRenderer.min.js",
                         "~/Scripts/jqPlot/plugins/jqplot.enhancedLegendRenderer.min.js",
                         "~/Scripts/jqPlot/plugins/jqplot.highlighter.min.js"));

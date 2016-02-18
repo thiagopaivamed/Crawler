@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Grafico Temporal";
+}
+
+<br />
+<br />
+<div>
+    <div class="col-md-2">
+        @Html.DropDownList("Categorias", null, htmlAttributes: new { @id = "categoriasDDL" })
+    </div>
+</div>
+
+<div>
+    <div class="col-md-3">
+        @Html.DropDownList("EstadoId", null, htmlAttributes: new { @id = "estados" })
+    </div>
+</div>
+
+<div>
+    <div class="col-md-4">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="De" id="DataInicio" value="27/01/2016">
+            <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+            <input type="text" class="form-control" placeholder="Até" id="DataFim" value="13/02/2016">
+        </div>
+    </div>
+</div>
+
+<div class="col-md-2">
+    <input type="submit" value="Gerar Gráfico" class="btn btn-primary" id="btnGerarGrafico"/>
+</div>
+
+
+<br/>
+<br/>
+<br />
+<br />
+<br />
+<br />
+
+
+<div id="divGraficos">
+    <div id="GraficoTemporal" style="width: 90%; height: auto"></div>
+</div>

@@ -1,9 +1,9 @@
 ﻿using Crawler.BLL.Models;
 using Crawler.DAL.Repositories;
-using System;
-using System.Web.Mvc;
 using Crawler.ViewModels;
 using PagedList;
+using System;
+using System.Web.Mvc;
 
 namespace Crawler.Controllers
 {
@@ -17,7 +17,7 @@ namespace Crawler.Controllers
 
         public PostTwittersController() { }
 
-        public PostTwittersController(PostTwitterRepository _postTwitterRepository, 
+        public PostTwittersController(PostTwitterRepository _postTwitterRepository,
                                       TwitterServiceRepository _twitterServiceRepository,
                                       CategoriaRepository _categoriaRepository,
                                       EstadoRepository _estadoRepository)
@@ -28,14 +28,13 @@ namespace Crawler.Controllers
             estadoRepository = _estadoRepository;
         }
 
-        // GET: PostTwitters
         public ActionResult Index(int? pagina)
         {
             int numeroPagina = pagina ?? 1;
             ViewBag.EstadoId = new SelectList(estadoRepository.GetAllStates(), "EstadoId", "Nome");
             return View(postTwitterRepository.GetAll().ToPagedList(numeroPagina, tweetsPorPagina));
         }
-        
+
         public ActionResult Procurar(string termo, int? pagina)
         {
             PostTwitter postTwitter = new PostTwitter();
@@ -47,7 +46,7 @@ namespace Crawler.Controllers
             int categoriaId;
 
             ViewBag.EstadoId = new SelectList(estadoRepository.GetAllStates(), "EstadoId", "Nome");
-           
+
 
             if (string.IsNullOrEmpty(termo))
             {
@@ -105,7 +104,7 @@ namespace Crawler.Controllers
         public JsonResult GetMapData(string categoria)
         {
             DadosMapas dadosMapas = new DadosMapas();
-            
+
             if (string.IsNullOrEmpty(categoria))
             {
                 dadosMapas.Quantidade = categoriaRepository.GetTotalByCategory("Assalto");
@@ -119,7 +118,7 @@ namespace Crawler.Controllers
                 dadosMapas.Codigos = estadoRepository.GetStatesCodesByCategory(categoria);
                 dadosMapas.QuantidadeTotal = categoriaRepository.GetTotal(categoria);
             }
-            
+
 
             return Json(dadosMapas, JsonRequestBehavior.AllowGet);
 
@@ -134,7 +133,6 @@ namespace Crawler.Controllers
             dadosViolenciaGrafico.Estado = estadoRepository.GetStatebyId(codigo);
 
             return Json(dadosViolenciaGrafico, JsonRequestBehavior.AllowGet);
-
         }
 
 
@@ -159,17 +157,33 @@ namespace Crawler.Controllers
                 dadosGraficos.Quantidade = categoriaRepository.GetTotalByCategory(categoria);
                 dadosGraficos.Siglas = estadoRepository.GetStatesAcronymsByCategory(categoria);
             }
-            
+
             return Json(dadosGraficos, JsonRequestBehavior.AllowGet);
-            
+
+        }
+        
+        public ActionResult GraficoTemporal()
+        {
+            ViewBag.Categorias = new SelectList(categoriaRepository.GetAllCategories(), "CategoriaId", "Nome");
+            ViewBag.EstadoId = new SelectList(estadoRepository.GetAllStates(), "EstadoId", "Nome");
+            return View();
+
+        }
+
+        public JsonResult GetTemporalData(string categoria, string dataInicio, string dataFim, string estado)
+        {
+            DadosGraficoLinha dadosGraficoLinha = new DadosGraficoLinha();
+
+            dadosGraficoLinha.Datas = postTwitterRepository.GetDatesByRange(categoria, dataInicio, dataFim, estado);
+            dadosGraficoLinha.Quantidade = postTwitterRepository.GetTotalByDate(categoria, dataInicio, dataFim, estado);
+
+            return Json(dadosGraficoLinha, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult GetCategories()
         {
-
             return Json((categoriaRepository.GetAllCategories()), JsonRequestBehavior.AllowGet);
-
         }
 
         protected override void Dispose(bool disposing)

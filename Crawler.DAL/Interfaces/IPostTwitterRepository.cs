@@ -12,5 +12,9 @@ namespace Crawler.DAL.Interfaces
         IEnumerable<PostTwitter> GetAll();
 
         void SaveTweets(PostTwitter postTwitter);
+
+        List<int> GetTotalByDate(string categoria, string dataInicio, string dataFim, string estado);
+
+        List<string> GetDatesByRange(string categoria, string dataInicio, string dataFim, string estado);
     }
 }
