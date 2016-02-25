@@ -12,7 +12,7 @@
         if (dataInicio.length <= 0 && dataFim.length <= 0) {
             sweetAlert({
                 title: 'Erro',
-                text: 'Informe a data inicial e final',
+                html: '<strong>Informe a data inicial e final</strong>',
                 type: 'error',
                 confirmButtonText: 'Entendi !',
                 confirmButtonColor: "#008cba"
@@ -22,7 +22,7 @@
         else if (dataInicio.length <= 0) {
             sweetAlert({
                 title: 'Erro',
-                text: 'Informe a data inicial',
+                html: '<strong>Informe a data inicial</strong>',
                 type: 'error',
                 confirmButtonText: 'Entendi !',
                 confirmButtonColor: "#008cba"
@@ -32,7 +32,7 @@
         else if (dataFim.length <= 0) {
             sweetAlert({
                 title: 'Erro',
-                text: 'Informe a data final',
+                html: '<strong>Informe a data final</strong>',
                 type: 'error',
                 confirmButtonText: 'Entendi !',
                 confirmButtonColor: "#008cba"
@@ -60,7 +60,7 @@
                         showConfirmButton: false,
                         confirmButtonColor: "#008cba",
                         allowOutsideClick: false,
-                        timer: 10000
+                        timer: 8400
                     });
                 },
 
@@ -71,7 +71,7 @@
                 error: function () {
                     sweetAlert({
                         title: 'Erro',
-                        text: 'Não foi possível processar essa requisição',
+                        html: '<strong>Não foi possível processar os dados</strong></br></br></br>',
                         type: 'error',
                         confirmButtonText: 'Entendi !',
                         confirmButtonColor: "#008cba"
