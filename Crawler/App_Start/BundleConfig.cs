@@ -11,6 +11,7 @@ namespace Crawler
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.easy-autocomplete.js",
                         "~/Scripts/jquery.nice-select.js",
+                        "~/Scripts/sweetalert2.min.js",
                         "~/Scripts/Auto.js",
                         "~/Scripts/DropDownLists.js",
                         "~/Scripts/Grafico.js",
@@ -19,7 +20,7 @@ namespace Crawler
                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                "~/Scripts/jquery.unobtrusive-ajax.min.js",       
+                "~/Scripts/jquery.unobtrusive-ajax.min.js",
                 "~/Scripts/jquery.validate*"
                        ));
 
@@ -28,6 +29,12 @@ namespace Crawler
                "~/Scripts/jquery.vmap.brazil.js",
                "~/Scripts/Mapa.js"
                       ));
+
+            bundles.Add(new ScriptBundle("~/bundles/Calendario").Include(
+              "~/Scripts/bootstrap-datepicker.min.js",
+              "~/Scripts/bootstrap-datepicker.pt-BR.min.js",
+              "~/Scripts/Datepicker.js"
+                     ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqplotPlugins").Include(
                         "~/Scripts/jqplot/jquery.jqplot.min.js",
@@ -46,7 +53,7 @@ namespace Crawler
                         "~/Scripts/jqPlot/plugins/jqplot.enhancedLegendRenderer.min.js",
                         "~/Scripts/jqPlot/plugins/jqplot.highlighter.min.js"));
 
-           
+
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
@@ -56,11 +63,13 @@ namespace Crawler
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/sweetalert2.css",
                       "~/Content/nice-select.css",
                       "~/Content/jqvmap.css",
                       "~/Content/easy-autocomplete.css",
                       "~/Content/easy-autocomplete.themes.css",
                       "~/Scripts/jqPlot/jquery.jqplot.min.css",
+                      "~/Content/bootstrap-datepicker3.min.css",
                       "~/Content/site.css"));
         }
     }

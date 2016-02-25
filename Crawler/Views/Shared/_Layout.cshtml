@@ -33,20 +33,23 @@
     <br />
     <div class="container body-content">
         @RenderBody()
-        <div class="navbar navbar-default navbar-fixed-bottom">
-            <footer>
-                <br/>
-                <strong>Mapeamento da Violência no Brasil</strong>
-            </footer>
-        </div>
     </div>
+    
+    <div class="navbar navbar-default navbar-fixed-bottom">
+        <footer>
+            <br />
+            <strong>Mapeamento da Violência no Brasil</strong>
+        </footer>
+    </div>
+
     <br />
     <br />
     <br />
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/Calendario")
     @Scripts.Render("~/bundles/Mapas")
     @Scripts.Render("~/bundles/jqplotPlugins")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>

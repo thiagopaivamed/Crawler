@@ -10,15 +10,33 @@
         var estado = $("#estados option:selected").text();
 
         if (dataInicio.length <= 0 && dataFim.length <= 0) {
-            alert("Informe as datas de inicio e fim");
+            sweetAlert({
+                title: 'Erro',
+                text: 'Informe a data inicial e final',
+                type: 'error',
+                confirmButtonText: 'Entendi !',
+                confirmButtonColor: "#008cba"
+            });
         }
 
         else if (dataInicio.length <= 0) {
-            alert("Informe a data de inicio");
+            sweetAlert({
+                title: 'Erro',
+                text: 'Informe a data inicial',
+                type: 'error',
+                confirmButtonText: 'Entendi !',
+                confirmButtonColor: "#008cba"
+            });
         }
 
         else if (dataFim.length <= 0) {
-            alert("Informe a data de fim");
+            sweetAlert({
+                title: 'Erro',
+                text: 'Informe a data final',
+                type: 'error',
+                confirmButtonText: 'Entendi !',
+                confirmButtonColor: "#008cba"
+            });
         }
 
         else {
@@ -33,10 +51,31 @@
                     dataFim: dataFim,
                     estado: estado
                 },
+                
+                beforeSend: function() {
+                    sweetAlert({
+                        title: 'Processando',
+                        html: '<strong>Processando os dados pedidos</strong></br></br></br>',
+                        type: 'warning',
+                        showConfirmButton: false,
+                        confirmButtonColor: "#008cba",
+                        allowOutsideClick: false,
+                        timer: 10000
+                    });
+                },
+
                 success: function (dados) {
+                    
                     GerarGrafico(dados, categoria, dataInicio, dataFim, estado);
                 },
                 error: function () {
+                    sweetAlert({
+                        title: 'Erro',
+                        text: 'Não foi possível processar essa requisição',
+                        type: 'error',
+                        confirmButtonText: 'Entendi !',
+                        confirmButtonColor: "#008cba"
+                    });
                 }
             });
 

@@ -4,8 +4,26 @@ namespace Crawler.ViewModels
 {
     public class DadosMapas
     {
-        public IEnumerable<int> Codigos { get; set; }
-        public IEnumerable<int> Quantidade { get; set; }
-        public int QuantidadeTotal { get; set; }
+        private IEnumerable<int> _codigos;
+        private IEnumerable<int> _quantidade;
+        private int _quantidadeTotal;
+
+        public IEnumerable<int> Codigos
+        {
+            get { return _codigos; }
+            set { _codigos = value; }
+        }
+
+        public IEnumerable<int> Quantidade
+        {
+            get { return _quantidade; }
+            set { _quantidade = value; }
+        }
+
+        public int QuantidadeTotal
+        {
+            get { return _quantidadeTotal; }
+            set { _quantidadeTotal = value; }
+        }
     }
 }

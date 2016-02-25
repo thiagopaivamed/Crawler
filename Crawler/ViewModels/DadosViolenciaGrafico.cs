@@ -4,10 +4,28 @@ namespace Crawler.ViewModels
 {
     public class DadosViolenciaGrafico
     {
-        public IEnumerable<int> Quantidade { get; set; }
+        private IEnumerable<int> _quantidade;
 
-        public IEnumerable<string> Categoria { get; set; }
+        private IEnumerable<string> _categoria;
 
-        public string Estado { get; set; }
+        private string _estado;
+
+        public IEnumerable<int> Quantidade
+        {
+            get { return _quantidade; }
+            set { _quantidade = value; }
+        }
+
+        public IEnumerable<string> Categoria
+        {
+            get { return _categoria; }
+            set { _categoria = value; }
+        }
+
+        public string Estado
+        {
+            get { return _estado; }
+            set { _estado = value; }
+        }
     }
 }
