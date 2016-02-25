@@ -71,7 +71,7 @@
                 error: function () {
                     sweetAlert({
                         title: 'Erro',
-                        html: '<strong>Não foi possível processar os dados</strong></br></br></br>',
+                        html: '<strong>Não foi possível processar os dados</strong>',
                         type: 'error',
                         confirmButtonText: 'Entendi !',
                         confirmButtonColor: "#008cba"
