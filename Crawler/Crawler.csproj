@@ -142,7 +142,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\DadosGraficoLinha.cs" />
     <Compile Include="ViewModels\DadosViolenciaGrafico.cs" />
-    <Compile Include="ViewModels\DadosMapas.cs" />
+    <Compile Include="ViewModels\DadosMapa.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datepicker3.min.css" />
@@ -285,9 +285,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\PostTwitters\Index.cshtml" />
-    <Content Include="Views\PostTwitters\Graficos.cshtml" />
+    <Content Include="Views\PostTwitters\Grafico.cshtml" />
     <Content Include="Views\PostTwitters\Tweets.cshtml" />
-    <Content Include="Views\PostTwitters\Mapas.cshtml" />
+    <Content Include="Views\PostTwitters\Mapa.cshtml" />
     <Content Include="Views\PostTwitters\GraficoTemporal.cshtml" />
   </ItemGroup>
   <ItemGroup>

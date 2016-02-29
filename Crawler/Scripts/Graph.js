@@ -12,7 +12,13 @@
             GerarGrafico(result.Quantidade, result.Siglas);
         },
         error: function () {
-            alert("Erro");
+            sweetAlert({
+                title: 'Erro',
+                html: '<strong>Não foi possível processar os dados</strong>',
+                type: 'error',
+                confirmButtonText: 'Entendi !',
+                confirmButtonColor: "#008cba"
+            });
         }
     });
     

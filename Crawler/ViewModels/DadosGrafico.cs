@@ -18,5 +18,6 @@ namespace Crawler.ViewModels
             get { return _quantidade; }
             set { _quantidade = value; }
         }
+       
     }
 }

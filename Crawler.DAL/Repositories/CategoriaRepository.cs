@@ -110,9 +110,9 @@ namespace Crawler.DAL.Repositories
             {
                 return
                     crawlerDB.PostTwitters.Include(a => a.Categoria)
-                        .Where(c => c.Categoria.Nome == categoria)
-                        .GroupBy(d => d.EstadoId)
-                        .Select(p => p.Count())
+                        .Where(e => e.Categoria.Nome == categoria.ToString())
+                        .GroupBy(e => e.EstadoId)
+                        .Select(e => e.Count())
                         .ToList();
             }
 

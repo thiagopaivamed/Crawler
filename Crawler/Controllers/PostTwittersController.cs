@@ -94,7 +94,7 @@ namespace Crawler.Controllers
             return View("Index", postTwitterRepository.GetAll().ToPagedList(numeroPagina, tweetsPorPagina));
         }
 
-        public ActionResult Mapas()
+        public ActionResult Mapa()
         {
             ViewBag.CategoriasId = new SelectList(categoriaRepository.GetAllCategories(), "CategoriaId", "Nome");
             return View();
@@ -103,24 +103,24 @@ namespace Crawler.Controllers
 
         public JsonResult GetMapData(string categoria)
         {
-            DadosMapas dadosMapas = new DadosMapas();
+            DadosMapa dadosMapa = new DadosMapa();
 
             if (string.IsNullOrEmpty(categoria))
             {
-                dadosMapas.Quantidade = categoriaRepository.GetTotalByCategory("Assalto");
-                dadosMapas.Codigos = estadoRepository.GetStatesCodesByCategory("Assalto");
-                dadosMapas.QuantidadeTotal = categoriaRepository.GetTotal("Assalto");
+                dadosMapa.Quantidade = categoriaRepository.GetTotalByCategory("Assalto");
+                dadosMapa.Codigos = estadoRepository.GetStatesCodesByCategory("Assalto");
+                dadosMapa.QuantidadeTotal = categoriaRepository.GetTotal("Assalto");
             }
 
             else
             {
-                dadosMapas.Quantidade = categoriaRepository.GetTotalByCategory(categoria);
-                dadosMapas.Codigos = estadoRepository.GetStatesCodesByCategory(categoria);
-                dadosMapas.QuantidadeTotal = categoriaRepository.GetTotal(categoria);
+                dadosMapa.Quantidade = categoriaRepository.GetTotalByCategory(categoria);
+                dadosMapa.Codigos = estadoRepository.GetStatesCodesByCategory(categoria);
+                dadosMapa.QuantidadeTotal = categoriaRepository.GetTotal(categoria);
             }
 
 
-            return Json(dadosMapas, JsonRequestBehavior.AllowGet);
+            return Json(dadosMapa, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -137,7 +137,7 @@ namespace Crawler.Controllers
 
 
         [HttpGet]
-        public ActionResult Graficos()
+        public ActionResult Grafico()
         {
             ViewBag.CategoriaId = new SelectList(categoriaRepository.GetAllCategories(), "CategoriaId", "Nome");
             return View();

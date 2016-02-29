@@ -2,7 +2,7 @@
 
 namespace Crawler.ViewModels
 {
-    public class DadosMapas
+    public class DadosMapa
     {
         private IEnumerable<int> _codigos;
         private IEnumerable<int> _quantidade;

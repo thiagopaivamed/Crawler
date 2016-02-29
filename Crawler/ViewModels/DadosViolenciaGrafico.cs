@@ -27,5 +27,6 @@ namespace Crawler.ViewModels
             get { return _estado; }
             set { _estado = value; }
         }
+        
     }
 }

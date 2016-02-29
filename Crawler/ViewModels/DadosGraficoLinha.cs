@@ -6,6 +6,7 @@ namespace Crawler.ViewModels
     {
         private IEnumerable<int> _quantidade;
         private IEnumerable<string> _datas;
+        private IEnumerable<string> _estados;
 
         public IEnumerable<int> Quantidade
         {
@@ -18,6 +19,11 @@ namespace Crawler.ViewModels
             get { return _datas; }
             set { _datas = value; }
         }
-       
+
+        public IEnumerable<string> Estados
+        {
+            get { return _estados; }
+            set { _estados = value; }
+        }
     }
 }
