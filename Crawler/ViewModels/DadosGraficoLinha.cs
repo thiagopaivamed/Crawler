@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Crawler.ViewModels
 {
     public class DadosGraficoLinha
     {
         private IEnumerable<int> _quantidade;
-        private IEnumerable<string> _datas;
+        private List<DateTime?> _datas;
         private IEnumerable<string> _estados;
 
         public IEnumerable<int> Quantidade
@@ -14,7 +15,7 @@ namespace Crawler.ViewModels
             set { _quantidade = value; }
         }
 
-        public IEnumerable<string> Datas
+        public List<DateTime?> Datas
         {
             get { return _datas; }
             set { _datas = value; }

@@ -1,6 +1,8 @@
-﻿using Crawler.BLL.Models;
+﻿using System.Web.Razor.Generator;
+using Crawler.BLL.Models;
 using Crawler.DAL.Repositories;
 using Crawler.ViewModels;
+using Newtonsoft.Json;
 using PagedList;
 using System;
 using System.Web.Mvc;
@@ -64,7 +66,7 @@ namespace Crawler.Controllers
                 {
                     postTwitter.NomeUsuario = tweet.User.ScreenName;
                     postTwitter.Texto = tweet.Text;
-                    postTwitter.Data = tweet.CreatedDate.ToShortDateString();
+                    postTwitter.Data = Convert.ToDateTime(tweet.CreatedDate.ToString("d"));
                     postTwitter.CategoriaId = categoriaId;
                     postTwitter.EstadoId = Convert.ToInt32(estadoId);
                     postTwitterRepository.SaveTweets(postTwitter);
@@ -82,6 +84,7 @@ namespace Crawler.Controllers
                 {
                     postTwitter.NomeUsuario = tweet.User.ScreenName;
                     postTwitter.Texto = tweet.Text;
+                    postTwitter.Data = Convert.ToDateTime(tweet.CreatedDate.ToString("d"));
                     postTwitter.CategoriaId = categoriaId;
                     postTwitter.EstadoId = Convert.ToInt32(estadoId);
                     postTwitterRepository.SaveTweets(postTwitter);
@@ -174,8 +177,11 @@ namespace Crawler.Controllers
         {
             DadosGraficoLinha dadosGraficoLinha = new DadosGraficoLinha();
 
-            dadosGraficoLinha.Datas = postTwitterRepository.GetDatesByRange(categoria, dataInicio, dataFim, estado);
-            dadosGraficoLinha.Quantidade = postTwitterRepository.GetTotalByDate(categoria, dataInicio, dataFim, estado);
+            DateTime di = Convert.ToDateTime(dataInicio);
+            DateTime df = Convert.ToDateTime(dataFim);
+
+            dadosGraficoLinha.Datas = postTwitterRepository.GetDatesByRange(categoria, di, df, estado);
+            dadosGraficoLinha.Quantidade = postTwitterRepository.GetTotalByDate(categoria, di, df, estado);
 
             return Json(dadosGraficoLinha, JsonRequestBehavior.AllowGet);
         }

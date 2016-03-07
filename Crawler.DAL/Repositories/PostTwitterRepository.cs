@@ -44,16 +44,16 @@ namespace Crawler.DAL.Repositories
             }
         }
 
-        public List<int> GetTotalByDate(string categoria, string dataInicio, string dataFim, string estado)
+        public List<int> GetTotalByDate(string categoria, DateTime dataInicio, DateTime dataFim, string estado)
         {
             crawlerDB = new CrawlerDB();
             try
             {
                 return
                     crawlerDB.PostTwitters.Include(c => c.Categoria).Include(e => e.Estado).AsEnumerable()
-                        .Where( p => p.Categoria.Nome == categoria && p.Estado.Nome == estado && Convert.ToDateTime(p.Data) >= Convert.ToDateTime(dataInicio) && Convert.ToDateTime(p.Data) <= Convert.ToDateTime(dataFim))
+                        .Where( p => p.Categoria.Nome == categoria && p.Estado.Nome == estado && p.Data >= dataInicio && p.Data <= dataFim)
                         .GroupBy(p => new { p.Data, p.Estado.Sigla, p.Categoria.Nome })
-                        .OrderByDescending(p => p.Key.Data)
+                        .OrderBy(p => p.Key.Data)
                         .Distinct()
                         .Select(p => p.Count())
                         .ToList();
@@ -69,16 +69,16 @@ namespace Crawler.DAL.Repositories
             }
         }
 
-        public List<string> GetDatesByRange(string categoria, string dataInicio, string dataFim, string estado)
+        public List<DateTime?> GetDatesByRange(string categoria, DateTime dataInicio, DateTime dataFim, string estado)
         {
             crawlerDB = new CrawlerDB();
             try
             {
                 return
                     crawlerDB.PostTwitters.Include(c => c.Categoria).Include(e => e.Estado).AsEnumerable()
-                        .Where(p => p.Categoria.Nome == categoria && p.Estado.Nome == estado && Convert.ToDateTime(p.Data) >= Convert.ToDateTime(dataInicio) && Convert.ToDateTime(p.Data) <= Convert.ToDateTime(dataFim))
+                        .Where(p => p.Categoria.Nome == categoria && p.Estado.Nome == estado && p.Data >= dataInicio && p.Data <= dataFim)
                         .GroupBy(p => new { p.Data, p.Estado.Sigla, p.Categoria.Nome })
-                        .OrderByDescending(p => p.Key.Data)
+                        .OrderBy(p => p.Key.Data)
                         .Select(p => p.Key.Data)
                         .Distinct()
                         .ToList();

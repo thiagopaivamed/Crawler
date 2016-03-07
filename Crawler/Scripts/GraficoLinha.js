@@ -83,6 +83,16 @@
     });
 
     function GerarGrafico(dados, categoria, dataInicio, dataFim, estado) {
+        
+        var datas = [];
+        var d;
+        var i = 0;
+        
+        while (i < dados.Datas.length) {
+            d = moment.utc(dados.Datas[i]).format('D/M/YYYY');
+            datas.push(d);
+            i++;
+        }
 
         $.jqplot('GraficoTemporal', [dados.Quantidade],
             {
@@ -102,7 +112,7 @@
                     pointLabels:
                     {
                         show: true,
-                        labels: [dados.Datas],
+                        labels: [datas],
                         escapeHTML: true
                     }
                 }
@@ -140,10 +150,12 @@
                         renderer: $.jqplot.CategoryAxisRenderer,
                         autoscale: true,
                         drawMajorGridlines: false,
-                        ticks: dados.Datas,
+                        ticks: datas,
                         tickRenderer: $.jqplot.CanvasAxisTickRenderer,
                         tickOptions: {
-                            angle: 30
+                            angle: 30,
+                            fontSize: '8pt'
+                            
                         }
                     }
                 },

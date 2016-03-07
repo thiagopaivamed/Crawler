@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
@@ -12,8 +13,8 @@ namespace Crawler.BLL.Models
         public string NomeUsuario { get; set; }
 
         public string Texto { get; set; }
-
-        public string Data { get; set; }
+        
+        public DateTime? Data { get; set; }
 
         [ForeignKey("Estado")]
         public int EstadoId { get; set; }

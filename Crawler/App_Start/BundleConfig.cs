@@ -9,6 +9,8 @@ namespace Crawler
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/moment.min.js",
+                        "~/Scripts/ moment-with-locales.min.js",
                         "~/Scripts/jquery.easy-autocomplete.js",
                         "~/Scripts/jquery.nice-select.js",
                         "~/Scripts/sweetalert2.min.js",

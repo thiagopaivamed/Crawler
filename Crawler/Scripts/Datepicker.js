@@ -15,3 +15,6 @@ $('#DataFim').datepicker({
     autoclose: true,
     todayHighlight: true
 });
+
+$('#DataInicio').tooltip();
+$('#DataFim').tooltip();

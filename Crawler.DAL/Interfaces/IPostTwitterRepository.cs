@@ -13,8 +13,8 @@ namespace Crawler.DAL.Interfaces
 
         void SaveTweets(PostTwitter postTwitter);
 
-        List<int> GetTotalByDate(string categoria, string dataInicio, string dataFim, string estado);
+        List<int> GetTotalByDate(string categoria, DateTime dataInicio, DateTime dataFim, string estado);
 
-        List<string> GetDatesByRange(string categoria, string dataInicio, string dataFim, string estado);
+        List<DateTime?> GetDatesByRange(string categoria, DateTime dataInicio, DateTime dataFim, string estado);
     }
 }
