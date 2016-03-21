@@ -64,7 +64,7 @@ namespace Crawler
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.min.css",
                       "~/Content/sweetalert2.css",
                       "~/Content/nice-select.css",
                       "~/Content/jqvmap.css",
