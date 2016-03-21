@@ -153,8 +153,10 @@
                         ticks: datas,
                         tickRenderer: $.jqplot.CanvasAxisTickRenderer,
                         tickOptions: {
-                            angle: 30,
-                            fontSize: '8pt'
+                            angle: 45,
+                            fontSize: '1.0em',
+                            position: 'relative',
+                            textAlign: 'center'
                             
                         }
                     }
