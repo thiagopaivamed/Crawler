@@ -175,8 +175,8 @@ namespace Crawler.Controllers
         {
             DadosGraficoLinha dadosGraficoLinha = new DadosGraficoLinha();
 
-            DateTime di = Convert.ToDateTime(dataInicio);
-            DateTime df = Convert.ToDateTime(dataFim);
+            DateTime di = DateTime.ParseExact(dataInicio, "dd/MM/yyyy", null);
+            DateTime df = DateTime.ParseExact(dataFim, "dd/MM/yyyy", null);
 
             dadosGraficoLinha.Datas = postTwitterRepository.GetDatesByRange(categoria, di, df, estado);
             dadosGraficoLinha.Quantidade = postTwitterRepository.GetTotalByDate(categoria, di, df, estado);
