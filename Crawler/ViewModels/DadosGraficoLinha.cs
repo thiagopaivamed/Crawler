@@ -7,8 +7,7 @@ namespace Crawler.ViewModels
     {
         private IEnumerable<int> _quantidade;
         private List<DateTime?> _datas;
-        private IEnumerable<string> _estados;
-
+       
         public IEnumerable<int> Quantidade
         {
             get { return _quantidade; }
@@ -19,12 +18,6 @@ namespace Crawler.ViewModels
         {
             get { return _datas; }
             set { _datas = value; }
-        }
-
-        public IEnumerable<string> Estados
-        {
-            get { return _estados; }
-            set { _estados = value; }
         }
     }
 }

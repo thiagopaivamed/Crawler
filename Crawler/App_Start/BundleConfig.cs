@@ -70,7 +70,7 @@ namespace Crawler
                       "~/Content/jqvmap.css",
                       "~/Content/easy-autocomplete.css",
                       "~/Content/easy-autocomplete.themes.css",
-                      "~/Scripts/jqPlot/jquery.jqplot.min.css",
+                      "~/Content/jquery.jqplot.min.css",
                       "~/Content/bootstrap-datepicker3.min.css",
                       "~/Content/site.css"));
         }
