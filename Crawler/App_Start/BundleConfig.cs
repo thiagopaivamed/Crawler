@@ -15,11 +15,15 @@ namespace Crawler
                         "~/Scripts/jquery.nice-select.js",
                         "~/Scripts/sweetalert2.min.js",
                         "~/Scripts/Auto.js",
-                        "~/Scripts/DropDownLists.js",
-                        "~/Scripts/Grafico.js",
-                        "~/Scripts/GraficoLinha.js",
-                        "~/Scripts/Graph.js"
+                        "~/Scripts/DropDownLists.js"
+                        
                        ));
+
+            bundles.Add(new ScriptBundle("~/bundles/graficos").Include(
+                "~/Scripts/Grafico.js",
+                "~/Scripts/Graph.js"
+                       ));
+
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                 "~/Scripts/jquery.unobtrusive-ajax.min.js",
@@ -35,7 +39,8 @@ namespace Crawler
             bundles.Add(new ScriptBundle("~/bundles/Calendario").Include(
               "~/Scripts/bootstrap-datepicker.min.js",
               "~/Scripts/bootstrap-datepicker.pt-BR.min.js",
-              "~/Scripts/Datepicker.js"
+              "~/Scripts/Datepicker.js",
+              "~/Scripts/GraficoLinha.js"
                      ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqplotPlugins").Include(

@@ -54,13 +54,22 @@
                 
                 beforeSend: function() {
                     sweetAlert({
-                        title: 'Processando',
-                        html: '<strong>Processando os dados pedidos</strong></br></br></br>',
+                        title: 'Processando dados',
+                        html: '</br><strong>Processando os dados pedidos</strong></br></br></br>',
                         type: 'warning',
                         showConfirmButton: false,
-                        confirmButtonColor: "#008cba",
+                        allowOutsideClick: false
+                    });
+                },
+                
+                complete: function () {
+                    sweetAlert({
+                        title: 'Processando dados',
+                        html: '</br><strong>Processo concluido</strong></br></br></br>',
+                        type: 'success',
+                        showConfirmButton: false,
                         allowOutsideClick: false,
-                        timer: 8400
+                        timer: 1500
                     });
                 },
 

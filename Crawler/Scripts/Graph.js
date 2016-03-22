@@ -8,6 +8,28 @@
         url: url,
         type: 'GET',
         data: { categoria: categorias },
+        
+        beforeSend: function () {
+            sweetAlert({
+                title: 'Processando dados',
+                html: '</br><strong>Processando os dados pedidos</strong></br></br></br>',
+                type: 'warning',
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+        },
+
+        complete: function () {
+            sweetAlert({
+                title: 'Processando dados',
+                html: '</br><strong>Processo concluido</strong></br></br></br>',
+                type: 'success',
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                timer: 1500
+            });
+        },
+
         success: function (result) {
             GerarGrafico(result.Quantidade, result.Siglas);
         },
