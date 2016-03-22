@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Crawler.BLL.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Crawler.BLL.Models;
 
 namespace Crawler.DAL.Interfaces
 {
@@ -12,15 +8,7 @@ namespace Crawler.DAL.Interfaces
         IEnumerable<Estado> GetAllStates();
 
         string GetStatebyId(int id);
-
-        IEnumerable<string> GetStatesAcronyms();
-
-        IEnumerable<int> GetStatesIds();
-
-        IEnumerable<string> GetStatesNames();
-
-        IEnumerable<int> GetTotal();
-
+       
         IEnumerable<string> GetStatesAcronymsByCategory(string categoria);
 
         IEnumerable<int> GetStatesCodesByCategory(string categoria);

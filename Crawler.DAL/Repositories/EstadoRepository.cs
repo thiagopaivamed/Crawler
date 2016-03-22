@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using System.Threading.Tasks;
 using Crawler.BLL.Models;
 using Crawler.DAL.Interfaces;
 
@@ -9,17 +10,20 @@ namespace Crawler.DAL.Repositories
 {
     public class EstadoRepository : IEstadoRepository
     {
-
-        private CrawlerDB crawlerDB;
+        private ContextDB contextDB;
 
         public IEnumerable<Estado> GetAllStates()
         {
-            crawlerDB = new CrawlerDB();
+            contextDB = new ContextDB();
 
             try
             {
-                IEnumerable<Estado> states = crawlerDB.Estados.OrderBy(x => x.Nome);
-                return states;
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+                    IEnumerable<Estado> states = crawlerDB.Estados.AsNoTracking().OrderBy(x => x.Nome).ToList();
+                    return states;
+                }
             }
 
             catch (Exception exception)
@@ -29,21 +33,24 @@ namespace Crawler.DAL.Repositories
 
             finally
             {
-                crawlerDB = null;
+                contextDB = null;
             }
 
-            
         }
 
         public string GetStatebyId(int id)
         {
-            crawlerDB = new CrawlerDB();
+            contextDB = new ContextDB();
 
             try
             {
-                Estado state = crawlerDB.Estados.FirstOrDefault(e => e.EstadoId == id);
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+                    Task<Estado> state = crawlerDB.Estados.AsNoTracking().FirstOrDefaultAsync(e => e.EstadoId == id);
 
-                return state.Nome;
+                    return state.Result.Nome;
+                }
             }
 
             catch (Exception exception)
@@ -53,101 +60,26 @@ namespace Crawler.DAL.Repositories
 
             finally
             {
-                crawlerDB = null;
-            }
-        }
-
-        public IEnumerable<string> GetStatesAcronyms()
-        {
-            crawlerDB = new CrawlerDB();
-
-            try
-            {
-                return crawlerDB.PostTwitters.Include(a => a.Categoria).Select(p => p.Estado.Sigla).Distinct().ToList();
-            }
-
-            catch (Exception exception)
-            {
-                throw exception;
-            }
-
-            finally
-            {
-                crawlerDB = null;
-            }
-        }
-
-        public IEnumerable<string> GetStatesNames()
-        {
-            crawlerDB = new CrawlerDB();
-            try
-            {
-                return crawlerDB.PostTwitters.Include(a => a.Categoria).Select(p => p.Estado.Nome).Distinct().ToList();
-            }
-            catch (Exception exception)
-            {
-                throw exception;
-            }
-
-            finally
-            {
-                crawlerDB = null;
-            }
-        }
-
-        public IEnumerable<int> GetStatesIds()
-        {
-            crawlerDB = new CrawlerDB();
-            try
-            {
-                return
-                    crawlerDB.PostTwitters.Include(a => a.Categoria).Select(p => p.Estado.EstadoId).Distinct().ToList();
-            }
-            catch (Exception exception)
-            {
-                throw exception;
-            }
-
-            finally
-            {
-                crawlerDB = null;
-            }
-        }
-
-        public IEnumerable<int> GetTotal()
-        {
-            crawlerDB = new CrawlerDB();
-            try
-            {
-                return
-                    crawlerDB.PostTwitters.Include(a => a.Categoria)
-                        .GroupBy(d => d.EstadoId)
-                        .Select(p => p.Count())
-                        .ToList();
-            }
-            catch (Exception exception)
-            {
-                throw exception;
-            }
-
-            finally
-            {
-                crawlerDB = null;
+                contextDB = null;
             }
         }
 
         public IEnumerable<string> GetStatesAcronymsByCategory(string categoria)
         {
-            crawlerDB = new CrawlerDB();
+            contextDB = new ContextDB();
 
             try
             {
-                return
-                    crawlerDB.PostTwitters.Include(a => a.Categoria)
-                        .Where(c => c.Categoria.Nome == categoria)
-                        .Select(p => p.Estado.Sigla)
-                        .Distinct()
-                        .ToList();
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+                    return
+                        crawlerDB.PostTwitters.Include(a => a.Categoria)
+                            .Where(c => c.Categoria.Nome == categoria)
+                            .Select(p => p.Estado.Sigla)
+                            .Distinct()
+                            .ToList();
+                }
             }
 
             catch (Exception exception)
@@ -157,22 +89,28 @@ namespace Crawler.DAL.Repositories
 
             finally
             {
-                crawlerDB = null;
+                contextDB = null;
             }
         }
 
         public IEnumerable<int> GetStatesCodesByCategory(string categoria)
         {
-            crawlerDB = new CrawlerDB();
+            contextDB = new ContextDB();
 
             try
             {
-                return
-                    crawlerDB.PostTwitters.Include(a => a.Categoria)
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+
+                    return 
+                        crawlerDB.PostTwitters.Include(a => a.Categoria)
+                        .AsNoTracking()
                         .Where(c => c.Categoria.Nome == categoria)
                         .Select(p => p.Estado.EstadoId)
                         .Distinct()
                         .ToList();
+                }
             }
 
             catch (Exception exception)
@@ -182,21 +120,28 @@ namespace Crawler.DAL.Repositories
 
             finally
             {
-                crawlerDB = null;
+                contextDB = null;
             }
         }
 
         public IEnumerable<int> GetTotalByCode(int codigo)
         {
-            crawlerDB = new CrawlerDB();
+            contextDB = new ContextDB();
+
             try
             {
-                return
-                    crawlerDB.PostTwitters.Include(a => a.Categoria)
-                        .Where(e => e.EstadoId == codigo)
-                        .GroupBy(c => c.Categoria.Nome)
-                        .Select(p => p.Count())
-                        .ToList();
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+
+                    return
+                        crawlerDB.PostTwitters.Include(a => a.Categoria)
+                            .AsNoTracking()
+                            .Where(e => e.EstadoId == codigo)
+                            .GroupBy(c => c.Categoria.Nome)
+                            .Select(p => p.Count())
+                            .ToList();
+                }
             }
             catch (Exception exception)
             {
@@ -205,21 +150,26 @@ namespace Crawler.DAL.Repositories
 
             finally
             {
-                crawlerDB = null;
+                contextDB = null;
             }
         }
 
         public IEnumerable<string> GetCategoryByCode(int codigo)
         {
-            crawlerDB = new CrawlerDB();
+            contextDB = new ContextDB();
+
             try
             {
-                return
-                    crawlerDB.PostTwitters.Include(a => a.Categoria)
-                        .Where(e => e.EstadoId == codigo)
-                        .Select(p => p.Categoria.Nome)
-                        .Distinct()
-                        .ToList();
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    return
+                        crawlerDB.PostTwitters.Include(a => a.Categoria)
+                            .AsNoTracking()
+                            .Where(e => e.EstadoId == codigo)
+                            .Select(p => p.Categoria.Nome)
+                            .Distinct()
+                            .ToList();
+                }
             }
             catch (Exception exception)
             {
@@ -228,7 +178,7 @@ namespace Crawler.DAL.Repositories
 
             finally
             {
-                crawlerDB = null;
+                contextDB = null;
             }
         }
 

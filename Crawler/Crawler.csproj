@@ -176,6 +176,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\CrawlerTCC %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\CrawlerTCC.pubxml" />
+    <None Include="Properties\PublishProfiles\WebCrawlerTCC.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Datepicker.js" />
     <Content Include="Scripts\DropDownLists.js" />

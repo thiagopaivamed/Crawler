@@ -83,11 +83,13 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Interfaces\ICategoriaRepository.cs" />
+    <Compile Include="Interfaces\IContextDB.cs" />
     <Compile Include="Interfaces\IEstadoRepository.cs" />
     <Compile Include="Interfaces\IPostTwitterRepository.cs" />
     <Compile Include="Interfaces\ITwitterServiceRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CategoriaRepository.cs" />
+    <Compile Include="Repositories\ContextDB.cs" />
     <Compile Include="Repositories\EstadoRepository.cs" />
     <Compile Include="Repositories\PostTwitterRepository.cs" />
     <Compile Include="Repositories\TwitterServiceRepository.cs" />

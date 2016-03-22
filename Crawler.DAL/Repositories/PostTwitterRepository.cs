@@ -9,17 +9,26 @@ namespace Crawler.DAL.Repositories
 {
     public class PostTwitterRepository : IPostTwitterRepository
     {
-        private CrawlerDB crawlerDB;
+        private IContextDB contextDB;
 
         public IEnumerable<PostTwitter> GetAll()
         {
-            crawlerDB = new CrawlerDB();
+            contextDB = new ContextDB();
 
             try
             {
-                var tweets =
-                    crawlerDB.PostTwitters.Include(p => p.Categoria).Include(p => p.Estado).OrderBy(e => e.Estado.Nome);
-                return tweets;
+                using (var crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+                    var tweets =
+                        crawlerDB.PostTwitters.Include(p => p.Categoria)
+                            .Include(p => p.Estado)
+                            .AsNoTracking()
+                            .OrderBy(e => e.Estado.Nome)
+                            .ToList();
+
+                    return tweets;
+                }
             }
 
             catch (Exception exception)
@@ -29,34 +38,66 @@ namespace Crawler.DAL.Repositories
 
             finally
             {
-                crawlerDB = null;
+                contextDB = null;
             }
             
         }
 
         public void SaveTweets(PostTwitter postTwitter)
         {
-            crawlerDB = new CrawlerDB();
-            if (postTwitter != null)
+            contextDB = new ContextDB();
+
+            try
             {
-                crawlerDB.PostTwitters.Add(postTwitter);
-                crawlerDB.SaveChanges();
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+
+                    if (postTwitter != null)
+                    {
+                        crawlerDB.PostTwitters.Add(postTwitter);
+                        crawlerDB.SaveChangesAsync();
+                    }
+                }
+            }
+
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+
+            finally
+            {
+                contextDB = null;
             }
         }
 
         public List<int> GetTotalByDate(string categoria, DateTime dataInicio, DateTime dataFim, string estado)
         {
-            crawlerDB = new CrawlerDB();
+            contextDB = new ContextDB();
+
             try
             {
-                return
-                    crawlerDB.PostTwitters.Include(c => c.Categoria).Include(e => e.Estado).AsEnumerable()
-                        .Where( p => p.Categoria.Nome == categoria && p.Estado.Nome == estado && p.Data >= dataInicio && p.Data <= dataFim)
-                        .GroupBy(p => new { p.Data, p.Estado.Sigla, p.Categoria.Nome })
-                        .OrderBy(p => p.Key.Data)
-                        .Distinct()
-                        .Select(p => p.Count())
-                        .ToList();
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+
+                    return
+                        crawlerDB.PostTwitters.Include(c => c.Categoria)
+                            .Include(e => e.Estado)
+                            .AsNoTracking()
+                            .AsEnumerable()
+                            .Where(
+                                p =>
+                                    p.Categoria.Nome == categoria && p.Estado.Nome == estado && p.Data >= dataInicio &&
+                                    p.Data <= dataFim)
+                            .GroupBy(p => new {p.Data, p.Estado.Sigla, p.Categoria.Nome})
+                            .OrderBy(p => p.Key.Data)
+                            .Distinct()
+                            .Select(p => p.Count())
+                            .ToList();
+                }
+
             }
             catch (Exception exception)
             {
@@ -65,23 +106,37 @@ namespace Crawler.DAL.Repositories
 
             finally
             {
-                crawlerDB = null;
+                contextDB = null;
             }
         }
 
         public List<DateTime?> GetDatesByRange(string categoria, DateTime dataInicio, DateTime dataFim, string estado)
         {
-            crawlerDB = new CrawlerDB();
+            contextDB = new ContextDB();
+
             try
             {
-                return
-                    crawlerDB.PostTwitters.Include(c => c.Categoria).Include(e => e.Estado).AsEnumerable()
-                        .Where(p => p.Categoria.Nome == categoria && p.Estado.Nome == estado && p.Data >= dataInicio && p.Data <= dataFim)
-                        .GroupBy(p => new { p.Data, p.Estado.Sigla, p.Categoria.Nome })
-                        .OrderBy(p => p.Key.Data)
-                        .Select(p => p.Key.Data)
-                        .Distinct()
-                        .ToList();
+
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+                    
+                    return
+                        crawlerDB.PostTwitters.Include(c => c.Categoria)
+                            .Include(e => e.Estado)
+                            .AsNoTracking()
+                            .AsEnumerable()
+                            .Where(
+                                p =>
+                                    p.Categoria.Nome == categoria && p.Estado.Nome == estado && p.Data >= dataInicio &&
+                                    p.Data <= dataFim)
+                            .GroupBy(p => new {p.Data, p.Estado.Sigla, p.Categoria.Nome})
+                            .OrderBy(p => p.Key.Data)
+                            .Select(p => p.Key.Data)
+                            .Distinct()
+                            .ToList();
+
+                }
             }
             catch (Exception exception)
             {
@@ -90,7 +145,7 @@ namespace Crawler.DAL.Repositories
 
             finally
             {
-                crawlerDB = null;
+                contextDB = null;
             }
         }
 

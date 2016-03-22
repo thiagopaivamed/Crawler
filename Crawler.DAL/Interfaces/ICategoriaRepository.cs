@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Crawler.BLL.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Crawler.BLL.Models;
 
 namespace Crawler.DAL.Interfaces
 {

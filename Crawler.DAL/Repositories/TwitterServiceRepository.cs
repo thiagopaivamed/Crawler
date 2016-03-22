@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Crawler.BLL.Models;
 using Crawler.DAL.Interfaces;
 using TweetSharp;
 
@@ -9,11 +8,9 @@ namespace Crawler.DAL.Repositories
 {
     public class TwitterServiceRepository : ITwitterServiceRepository
     {
-        private CrawlerDB crawlerDB;
-
+        
         public TwitterService ConfigureService()
         {
-            crawlerDB = new CrawlerDB();
 
             try
             {
@@ -29,18 +26,12 @@ namespace Crawler.DAL.Repositories
             {
                 throw exception;
             }
-
-            finally
-            {
-                crawlerDB = null;
-            }
             
         }
 
         public List<TwitterStatus> Search(TwitterService service, string categoria)
         {
-            crawlerDB = new CrawlerDB();
-
+            
             try
             {
                 var tweets = service.Search(new SearchOptions {Q = categoria, Count = 200});
@@ -88,11 +79,6 @@ namespace Crawler.DAL.Repositories
             catch (Exception exception)
             {
                 throw exception;
-            }
-
-            finally
-            {
-                crawlerDB = null;
             }
         }
     }

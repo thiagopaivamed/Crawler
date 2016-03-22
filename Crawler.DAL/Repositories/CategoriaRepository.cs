@@ -9,18 +9,23 @@ namespace Crawler.DAL.Repositories
 {
     public class CategoriaRepository : ICategoriaRepository
     {
-        private CrawlerDB crawlerDB;
+        private ContextDB contextDB;
 
         public bool CheckIfExists(string categoria)
         {
-            crawlerDB = new CrawlerDB();
+            contextDB = new ContextDB();
             try
             {
-                IEnumerable<Categoria> cat = crawlerDB.Categorias.Where(p => p.Nome == categoria);
-                if (cat.Count() <= 0)
-                    return false;
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
 
-                return true;
+                    IEnumerable<Categoria> cat = crawlerDB.Categorias.AsNoTracking().Where(p => p.Nome == categoria);
+                    if (cat.Count() <= 0)
+                        return false;
+
+                    return true;
+                }
             }
 
             catch (Exception exception)
@@ -31,63 +36,21 @@ namespace Crawler.DAL.Repositories
 
             finally
             {
-                crawlerDB = null;
+                contextDB = null;
             }
         }
 
         public int GetId(string categoria)
         {
-            crawlerDB = new CrawlerDB();
+            contextDB = new ContextDB();
 
             try
             {
-                var cat = crawlerDB.Categorias.FirstOrDefault(c => c.Nome == categoria);
-                return cat.CategoriaId;
-            }
-
-            catch (Exception exception)
-            {
-                throw exception;
-            }
-
-            finally
-            {
-                crawlerDB = null;
-            }
-        }
-
-        public IEnumerable<Categoria> GetAllCategories()
-        {
-            crawlerDB = new CrawlerDB();
-
-            try
-            {
-                crawlerDB.Configuration.ProxyCreationEnabled = false;
-                IEnumerable<Categoria> categories = crawlerDB.Categorias.ToList();
-
-                return categories;
-            }
-
-            catch (Exception exception)
-            {
-                throw exception;
-            }
-
-            finally
-            {
-                crawlerDB = null;
-            }
-        }
-
-        public void SaveCategory(Categoria category)
-        {
-            crawlerDB = new CrawlerDB();
-            try
-            {
-                if (category != null)
+                using (CrawlerDB crawlerDB = new CrawlerDB())
                 {
-                    crawlerDB.Categorias.Add(category);
-                    crawlerDB.SaveChanges();
+                    contextDB.ConfigureContext(crawlerDB);
+                    var cat = crawlerDB.Categorias.AsNoTracking().FirstOrDefaultAsync(c => c.Nome == categoria);
+                    return cat.Result.CategoriaId;
                 }
             }
 
@@ -98,22 +61,79 @@ namespace Crawler.DAL.Repositories
 
             finally
             {
-                crawlerDB = null;
+                contextDB = null;
+            }
+        }
+
+        public IEnumerable<Categoria> GetAllCategories()
+        {
+            contextDB = new ContextDB();
+
+            try
+            {
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    IEnumerable<Categoria> categories = crawlerDB.Categorias.AsNoTracking().ToList();
+
+                    return categories;
+                }
+            }
+
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+
+            finally
+            {
+                contextDB = null;
+            }
+        }
+
+        public void SaveCategory(Categoria category)
+        {
+
+            try
+            {
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+                    if (category != null)
+                    {
+                        crawlerDB.Categorias.Add(category);
+                        crawlerDB.SaveChangesAsync();
+                    }
+                }
+            }
+
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+
+            finally
+            {
+                contextDB = null;
             }
         }
 
         public IEnumerable<int> GetTotalByCategory(string categoria)
         {
-            crawlerDB = new CrawlerDB();
+            contextDB = new ContextDB();
 
             try
             {
-                return
-                    crawlerDB.PostTwitters.Include(a => a.Categoria)
-                        .Where(e => e.Categoria.Nome.ToString() == categoria.ToString())
-                        .GroupBy(e => e.EstadoId)
-                        .Select(e => e.Count())
-                        .ToList();
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+                    return
+                        crawlerDB.PostTwitters.Include(a => a.Categoria)
+                        .AsNoTracking()
+                            .Where(e => e.Categoria.Nome.ToString() == categoria.ToString())
+                            .GroupBy(e => e.EstadoId)
+                            .Select(e => e.Count())
+                            .ToList();
+                }
             }
 
             catch (Exception exception)
@@ -123,19 +143,24 @@ namespace Crawler.DAL.Repositories
 
             finally
             {
-                crawlerDB = null;
+                contextDB = null;
             }
         }
 
         public int GetTotal(string categoria)
         {
-            crawlerDB = new CrawlerDB();
+            contextDB = new ContextDB();
 
             try
             {
-                return
-                    crawlerDB.PostTwitters.Include(a => a.Categoria).Count(c => c.Categoria.Nome == categoria);
-
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+                    return
+                        crawlerDB.PostTwitters.Include(a => a.Categoria)
+                            .AsNoTracking()
+                            .Count(c => c.Categoria.Nome == categoria);
+                }
             }
 
             catch (Exception exception)
@@ -145,7 +170,7 @@ namespace Crawler.DAL.Repositories
 
             finally
             {
-                crawlerDB = null;
+                contextDB = null;
             }
 
 

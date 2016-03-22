@@ -1,8 +1,6 @@
-﻿using System.Web.Razor.Generator;
-using Crawler.BLL.Models;
+﻿using Crawler.BLL.Models;
 using Crawler.DAL.Repositories;
 using Crawler.ViewModels;
-using Newtonsoft.Json;
 using PagedList;
 using System;
 using System.Web.Mvc;
