@@ -52,9 +52,9 @@
             {
                 if (dados.Codigos[i] == code)
                 {
-                    if (dados.Quantidade[i] != "")
+                    if (dados.Quantidade[code - 1] != "")
                     {
-                        label[0].innerHTML = "<div style='margin: auto;padding: 5px;'>" + "<center><strong>Aproximadamente " + ((dados.Quantidade[i] / dados.QuantidadeTotal) * 100).toFixed(2) + "% das ocorrências de " + (categoria.toLowerCase()) + "</br> acontecem em " + label[0].innerHTML + "</br> " + "</strong></center>" + "</div>";
+                        label[0].innerHTML = "<div style='margin: auto;padding: 5px;'>" + "<center><strong>Aproximadamente " + ((dados.Quantidade[code - 1] / dados.QuantidadeTotal) * 100).toFixed(2) + "% das ocorrências de " + (categoria.toLowerCase()) + "</br> acontecem em " + label[0].innerHTML + "</br> " + "</strong></center>" + "</div>";
                     }//fim else
 
                     else
