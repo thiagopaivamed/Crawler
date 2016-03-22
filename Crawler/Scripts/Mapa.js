@@ -9,6 +9,28 @@
         url: url,
         type: 'GET',
         data: { categoria: categoria },
+        
+        beforeSend: function () {
+            sweetAlert({
+                title: 'Processando dados',
+                html: '</br><strong>Carregando dados do mapa</strong></br></br></br>',
+                type: 'warning',
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+        },
+
+        complete: function () {
+            sweetAlert({
+                title: 'Processando dados',
+                html: '</br><strong>Processo concluido</strong></br></br></br>',
+                type: 'success',
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                timer: 1000
+            });
+        },
+        
         success: function (data)
         {
             dados = data;
@@ -24,6 +46,28 @@
             url: url,
             type: 'GET',
             data: { categoria: categoria },
+            
+            beforeSend: function () {
+                sweetAlert({
+                    title: 'Processando dados',
+                    html: '</br><strong>Processando os dados pedidos</strong></br></br></br>',
+                    type: 'warning',
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+            },
+
+            complete: function () {
+                sweetAlert({
+                    title: 'Processando dados',
+                    html: '</br><strong>Processo concluido</strong></br></br></br>',
+                    type: 'success',
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    timer: 1000
+                });
+            },
+
             success: function (data) {
                 dados = data;
             },

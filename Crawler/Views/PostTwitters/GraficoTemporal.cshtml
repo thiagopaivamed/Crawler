@@ -27,12 +27,12 @@
 </div>
 
 <div class="col-md-2">
-    <input type="submit" value="Gerar Gráfico" class="btn btn-outline-primary" id="btnGerarGrafico"/>
+    <input type="submit" value="Gerar Gráfico" class="btn btn-outline-primary" id="btnGerarGrafico" />
 </div>
 
 
-<br/>
-<br/>
+<br />
+<br />
 <br />
 <br />
 <br />
@@ -47,5 +47,6 @@
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/jqplotPlugins")
     @Scripts.Render("~/bundles/Calendario")
 }

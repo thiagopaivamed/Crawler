@@ -10,7 +10,7 @@
         beforeSend: function () {
             sweetAlert({
                 title: 'Processando dados',
-                html: '</br><strong>Processando os dados pedidos</strong></br></br></br>',
+                html: '</br><strong>Carregando dados do gráfico</strong></br></br></br>',
                 type: 'warning',
                 showConfirmButton: false,
                 allowOutsideClick: false

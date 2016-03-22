@@ -19,11 +19,12 @@
     <div id="divGraficos">
         <div id="grafico" style="width: 90%; height: auto"></div>
     </div>
-    <br /><br /><br /><br/>
+    <br /><br /><br /><br />
 </div>
 
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/jqplotPlugins")
     @Scripts.Render("~/bundles/graficos")
 }
