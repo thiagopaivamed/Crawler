@@ -73,6 +73,7 @@ namespace Crawler.DAL.Repositories
             {
                 using (CrawlerDB crawlerDB = new CrawlerDB())
                 {
+                    contextDB.ConfigureContext(crawlerDB);
                     IEnumerable<Categoria> categories = crawlerDB.Categorias.AsNoTracking().ToList();
 
                     return categories;
