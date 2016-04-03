@@ -38,42 +38,171 @@
         error: function (){ }
     });
 
-    $("#CategoriasViolencia").on('change', function ()
+    $("#btnGerarMapa").on('click', function ()
     {
         categoria = $("#CategoriasViolencia option:selected").text();
-        
-        $.ajax({
-            url: url,
-            type: 'GET',
-            data: { categoria: categoria },
+        var dataInicioMapa = $("#DataInicioMapa").val();
+        var dataFimMapa = $("#DataFimMapa").val();
+
+        if (dataInicioMapa.length <= 0 && dataFimMapa.length <= 0) {
             
-            beforeSend: function () {
-                sweetAlert({
-                    title: 'Processando dados',
-                    html: '</br><strong>Processando os dados pedidos</strong></br></br></br>',
-                    type: 'warning',
-                    showConfirmButton: false,
-                    allowOutsideClick: false
-                });
-            },
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: { categoria: categoria },
 
-            complete: function () {
-                sweetAlert({
-                    title: 'Processando dados',
-                    html: '</br><strong>Processo concluido</strong></br></br></br>',
-                    type: 'success',
-                    showConfirmButton: false,
-                    allowOutsideClick: false,
-                    timer: 1000
-                });
-            },
+                beforeSend: function () {
+                    sweetAlert({
+                        title: 'Processando dados',
+                        html: '</br><strong>Processando os dados pedidos</strong></br></br></br>',
+                        type: 'warning',
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                },
 
-            success: function (data) {
-                dados = data;
-            },
-            error: function () {
-            }
-        });
+                complete: function () {
+                    sweetAlert({
+                        title: 'Processando dados',
+                        html: '</br><strong>Processo concluido</strong></br></br></br>',
+                        type: 'success',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        timer: 1000
+                    });
+                },
+
+                success: function (data) {
+                    dados = data;
+                },
+                error: function () {
+                }
+            });
+
+        }
+
+        else if (dataInicioMapa.length >= 0 && dataFimMapa.length <= 0) {
+            url = '/PostTwitters/GetMapDataWithStartDate';
+            
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: {
+                    categoria: categoria,
+                    dataInicio: dataInicioMapa
+                },
+
+                beforeSend: function () {
+                    sweetAlert({
+                        title: 'Processando dados',
+                        html: '</br><strong>Processando os dados pedidos</strong></br></br></br>',
+                        type: 'warning',
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                },
+
+                complete: function () {
+                    sweetAlert({
+                        title: 'Processando dados',
+                        html: '</br><strong>Processo concluido</strong></br></br></br>',
+                        type: 'success',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        timer: 1000
+                    });
+                },
+
+                success: function (data) {
+                    dados = data;
+                },
+                error: function () {
+                }
+            });
+
+        }
+        
+        else if (dataInicioMapa.length <= 0 && dataFimMapa.length >= 0) {
+            url = '/PostTwitters/GetMapDataWithEndDate';
+            
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: {
+                    categoria: categoria,
+                    dataFim: dataFimMapa
+                },
+
+                beforeSend: function () {
+                    sweetAlert({
+                        title: 'Processando dados',
+                        html: '</br><strong>Processando os dados pedidos</strong></br></br></br>',
+                        type: 'warning',
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                },
+
+                complete: function () {
+                    sweetAlert({
+                        title: 'Processando dados',
+                        html: '</br><strong>Processo concluido</strong></br></br></br>',
+                        type: 'success',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        timer: 1000
+                    });
+                },
+
+                success: function (data) {
+                    dados = data;
+                },
+                error: function () {
+                }
+            });
+        }
+
+        else {
+            url = '/PostTwitters/GetMapDataWithBetweenDates';
+            
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: {
+                    categoria: categoria,
+                    dataInicio: dataInicioMapa,
+                    dataFim: dataFimMapa
+                },
+
+                beforeSend: function () {
+                    sweetAlert({
+                        title: 'Processando dados',
+                        html: '</br><strong>Processando os dados pedidos</strong></br></br></br>',
+                        type: 'warning',
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                },
+
+                complete: function () {
+                    sweetAlert({
+                        title: 'Processando dados',
+                        html: '</br><strong>Processo concluido</strong></br></br></br>',
+                        type: 'success',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        timer: 1000
+                    });
+                },
+
+                success: function (data) {
+                    dados = data;
+                },
+                error: function () {
+                }
+            });
+            
+        }
     });
 
 
@@ -129,7 +258,18 @@
             data: { codigo: code },
             success: function (data)
             {
-                GerarGrafico(data.Quantidade, data.Categoria, data.Estado);
+                if (data == null) {
+                    sweetAlert({
+                        title: 'Erro no processamento de dados',
+                        html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
+                        type: 'success',
+                        showConfirmButton: true
+                    });
+                }
+
+                else {
+                    GerarGrafico(data.Quantidade, data.Categoria, data.Estado);
+                }
             },
             error: function () { }
         });

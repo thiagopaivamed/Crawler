@@ -1,49 +1,251 @@
-﻿$("#categorias").on('change', function () {
-    
+﻿$("#btnGerarGraficoGB").on('click', function () {
+
     $.jqplot.config.enablePlugins = true;
     var url = '/PostTwitters/GetGraphicData';
     var categorias = $("#categorias option:selected").text();
+    var dataInicioGB = $("#DataInicioGB").val();
+    var dataFimGB = $("#DataFimGB").val();
+
+    //Sem datas definidas
+    if (dataInicioGB.length <= 0 && dataFimGB.length <= 0) {
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: { categoria: categorias },
+
+            beforeSend: function () {
+                sweetAlert({
+                    title: 'Processando dados',
+                    html: '</br><strong>Processando os dados pedidos</strong></br></br></br>',
+                    type: 'warning',
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+            },
+
+            complete: function () {
+                sweetAlert({
+                    title: 'Processando dados',
+                    html: '</br><strong>Processo concluido</strong></br></br></br>',
+                    type: 'success',
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    timer: 1500
+                });
+            },
+
+            success: function (result) {
+                if (result == null) {
+                    sweetAlert({
+                        title: 'Erro no processamento de dados',
+                        html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
+                        type: 'success',
+                        showConfirmButton: true
+                    });
+                }
+
+                else {
+
+                    GerarGrafico(result.Quantidade, result.Siglas);
+                }
+            },
+            error: function () {
+                sweetAlert({
+                    title: 'Erro',
+                    html: '<strong>Não foi possível processar os dados</strong>',
+                    type: 'error',
+                    confirmButtonText: 'Entendi !',
+                    confirmButtonColor: "#008cba"
+                });
+            }
+        });
+    }
     
-    $.ajax({
-        url: url,
-        type: 'GET',
-        data: { categoria: categorias },
+    //Com data de início definida
+    else if (dataInicioGB.length > 0 && dataFimGB.length <= 0) {
+
+        url = '/PostTwitters/GetTotalByCategoryWithStartDate';
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: {
+                categoria: categorias,
+                dataInicio: dataInicioGB
+            },
+
+            beforeSend: function () {
+                sweetAlert({
+                    title: 'Processando dados',
+                    html: '</br><strong>Processando os dados pedidos</strong></br></br></br>',
+                    type: 'warning',
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+            },
+
+            complete: function () {
+                sweetAlert({
+                    title: 'Processando dados',
+                    html: '</br><strong>Processo concluido</strong></br></br></br>',
+                    type: 'success',
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    timer: 1500
+                });
+            },
+
+            success: function (result) {
+                if (result == null) {
+                    sweetAlert({
+                        title: 'Erro no processamento de dados',
+                        html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
+                        type: 'success',
+                        showConfirmButton: true
+                    });
+                }
+
+                else {
+                    GerarGrafico(result.Quantidade, result.Siglas);
+                }
+            },
+            error: function () {
+                sweetAlert({
+                    title: 'Erro',
+                    html: '<strong>Não foi possível processar os dados</strong>',
+                    type: 'error',
+                    confirmButtonText: 'Entendi !',
+                    confirmButtonColor: "#008cba"
+                });
+            }
+        });
+
+    }
+
+        //Com data de fim definida
+    else if (dataInicioGB.length <= 0 && dataFimGB.length > 0) {
+
+        url = '/PostTwitters/GetTotalByCategoryWithEndtDate';
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: {
+                categoria: categorias,
+                dataFim: dataFimGB
+            },
+
+            beforeSend: function () {
+                sweetAlert({
+                    title: 'Processando dados',
+                    html: '</br><strong>Processando os dados pedidos</strong></br></br></br>',
+                    type: 'warning',
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+            },
+
+            complete: function () {
+                sweetAlert({
+                    title: 'Processando dados',
+                    html: '</br><strong>Processo concluido</strong></br></br></br>',
+                    type: 'success',
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    timer: 1500
+                });
+            },
+
+            success: function (result) {
+                if (result == null) {
+                    sweetAlert({
+                        title: 'Erro no processamento de dados',
+                        html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
+                        type: 'success',
+                        showConfirmButton: true
+                    });
+                }
+
+                else {
+                    GerarGrafico(result.Quantidade, result.Siglas);
+                }
+            },
+            error: function () {
+                sweetAlert({
+                    title: 'Erro',
+                    html: '<strong>Não foi possível processar os dados</strong>',
+                    type: 'error',
+                    confirmButtonText: 'Entendi !',
+                    confirmButtonColor: "#008cba"
+                });
+            }
+        });
+
+    }
+
+        //Com data de início e fim definida
+    else {
         
-        beforeSend: function () {
-            sweetAlert({
-                title: 'Processando dados',
-                html: '</br><strong>Processando os dados pedidos</strong></br></br></br>',
-                type: 'warning',
-                showConfirmButton: false,
-                allowOutsideClick: false
-            });
-        },
+        url = '/PostTwitters/GetTotalByCategoryBetweenDates';
 
-        complete: function () {
-            sweetAlert({
-                title: 'Processando dados',
-                html: '</br><strong>Processo concluido</strong></br></br></br>',
-                type: 'success',
-                showConfirmButton: false,
-                allowOutsideClick: false,
-                timer: 1500
-            });
-        },
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: {
+                categoria: categorias,
+                dataInicio: dataInicioGB,
+                dataFim: dataFimGB
+            },
 
-        success: function (result) {
-            GerarGrafico(result.Quantidade, result.Siglas);
-        },
-        error: function () {
-            sweetAlert({
-                title: 'Erro',
-                html: '<strong>Não foi possível processar os dados</strong>',
-                type: 'error',
-                confirmButtonText: 'Entendi !',
-                confirmButtonColor: "#008cba"
-            });
-        }
-    });
-    
+            beforeSend: function () {
+                sweetAlert({
+                    title: 'Processando dados',
+                    html: '</br><strong>Processando os dados pedidos</strong></br></br></br>',
+                    type: 'warning',
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+            },
+
+            complete: function () {
+                sweetAlert({
+                    title: 'Processando dados',
+                    html: '</br><strong>Processo concluido</strong></br></br></br>',
+                    type: 'success',
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    timer: 1500
+                });
+            },
+
+            success: function (result) {
+                if (result == null) {
+                    sweetAlert({
+                        title: 'Erro no processamento de dados',
+                        html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
+                        type: 'success',
+                        showConfirmButton: true
+                    });
+                }
+
+                else {
+
+                    GerarGrafico(result.Quantidade, result.Siglas);
+                }
+            },
+            error: function () {
+                sweetAlert({
+                    title: 'Erro',
+                    html: '<strong>Não foi possível processar os dados</strong>',
+                    type: 'error',
+                    confirmButtonText: 'Entendi !',
+                    confirmButtonColor: "#008cba"
+                });
+            }
+        });
+    }
+
     function GerarGrafico(quantidade, siglas) {
         $.jqplot('grafico', [quantidade], {
             seriesColors: ["#95a5a6"],
@@ -103,7 +305,7 @@
                     ticks: siglas
                 }
             },
-            
+
             axesDefaults: {
                 rendererOptions: {
                     baselineWidth: 1.5,
@@ -113,6 +315,4 @@
 
         }).replot();
     }
-
-    
 });

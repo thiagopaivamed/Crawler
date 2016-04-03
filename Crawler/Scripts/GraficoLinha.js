@@ -75,7 +75,18 @@
 
                 success: function (dados) {
                     
-                    GerarGrafico(dados, categoria, dataInicio, dataFim, estado);
+                    if (result == null) {
+                        sweetAlert({
+                            title: 'Erro no processamento de dados',
+                            html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
+                            type: 'success',
+                            showConfirmButton: true
+                        });
+                    }
+
+                    else {
+                        GerarGrafico(dados, categoria, dataInicio, dataFim, estado);
+                    }
                 },
                 error: function () {
                     sweetAlert({

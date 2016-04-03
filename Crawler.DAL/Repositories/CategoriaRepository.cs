@@ -148,6 +148,96 @@ namespace Crawler.DAL.Repositories
             }
         }
 
+        public IEnumerable<int> GetTotalByCategoryWithStartDate(string categoria, DateTime dataInicio)
+        {
+            contextDB = new ContextDB();
+
+            try
+            {
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+                    return
+                        crawlerDB.PostTwitters.Include(a => a.Categoria)
+                        .AsNoTracking()
+                            .Where(e => e.Categoria.Nome.ToString() == categoria.ToString() && e.Data >= dataInicio)
+                            .GroupBy(e => e.EstadoId)
+                            .Select(e => e.Count())
+                            .ToList();
+                }
+            }
+
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+
+            finally
+            {
+                contextDB = null;
+            }
+        }
+
+        public IEnumerable<int> GetTotalByCategoryWithEndDate(string categoria, DateTime dataFim)
+        {
+            contextDB = new ContextDB();
+
+            try
+            {
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+                    return
+                        crawlerDB.PostTwitters.Include(a => a.Categoria)
+                        .AsNoTracking()
+                            .Where(e => e.Categoria.Nome.ToString() == categoria.ToString() && e.Data <= dataFim)
+                            .GroupBy(e => e.EstadoId)
+                            .Select(e => e.Count())
+                            .ToList();
+                }
+            }
+
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+
+            finally
+            {
+                contextDB = null;
+            }
+        }
+
+        public IEnumerable<int> GetTotalByCategoryBetweenDates(string categoria, DateTime dataInicio, DateTime dataFim)
+        {
+            contextDB = new ContextDB();
+
+            try
+            {
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+                    return
+                        crawlerDB.PostTwitters.Include(a => a.Categoria)
+                        .AsNoTracking()
+                            .Where(e => e.Categoria.Nome.ToString() == categoria.ToString() && e.Data >= dataInicio && e.Data <= dataFim)
+                            .GroupBy(e => e.EstadoId)
+                            .Select(e => e.Count())
+                            .ToList();
+                }
+            }
+
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+
+            finally
+            {
+                contextDB = null;
+            }
+        }
+
         public int GetTotal(string categoria)
         {
             contextDB = new ContextDB();
@@ -174,6 +264,92 @@ namespace Crawler.DAL.Repositories
                 contextDB = null;
             }
 
+        }
+
+        public int GetTotalWithStartDate(string categoria, DateTime dataInicio)
+        {
+            contextDB = new ContextDB();
+
+            try
+            {
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+                    return
+                        crawlerDB.PostTwitters.Include(a => a.Categoria)
+                            .AsNoTracking()
+                            .Where(p => p.Data >= dataInicio)
+                            .Count(c => c.Categoria.Nome == categoria);
+                }
+            }
+
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+
+            finally
+            {
+                contextDB = null;
+            }
+
+        }
+
+        public int GetTotalWithEndDate(string categoria, DateTime dataFim)
+        {
+            contextDB = new ContextDB();
+
+            try
+            {
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+                    return
+                        crawlerDB.PostTwitters.Include(a => a.Categoria)
+                            .AsNoTracking()
+                            .Where(p => p.Data <= dataFim)
+                            .Count(c => c.Categoria.Nome == categoria);
+                }
+            }
+
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+
+            finally
+            {
+                contextDB = null;
+            }
+
+        }
+
+        public int GetTotalBetweenDates(string categoria, DateTime dataInicio, DateTime dataFim)
+        {
+            contextDB = new ContextDB();
+
+            try
+            {
+                using (CrawlerDB crawlerDB = new CrawlerDB())
+                {
+                    contextDB.ConfigureContext(crawlerDB);
+                    return
+                        crawlerDB.PostTwitters.Include(a => a.Categoria)
+                            .AsNoTracking()
+                            .Where(p => p.Data >= dataInicio && p.Data <= dataFim)
+                            .Count(c => c.Categoria.Nome == categoria);
+                }
+            }
+
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+
+            finally
+            {
+                contextDB = null;
+            }
 
         }
     }

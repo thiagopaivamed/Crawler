@@ -10,11 +10,26 @@
         <br />
 
         <div>
-            <div class="col-md-10">
+            <div class="col-md-2">
                 @Html.DropDownList("CategoriasId", null, htmlAttributes: new { @id = "CategoriasViolencia" })
+            </div>
+            <div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="De" id="DataInicioMapa" data-placement="top" title="DD/MM/AAAA">
+                        <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+                        <input type="text" class="form-control" placeholder="Até" id="DataFimMapa" data-placement="top" title="DD/MM/AAAA">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <input type="submit" value="Gerar Dados" class="btn btn-outline-primary" id="btnGerarMapa" />
             </div>
         </div>
     </div>
+    
+    <br /><br /><br /><br />
 
     <div align="center">
         <div id="MapaViolencia" style="width: 600px; height: 400px;"></div>

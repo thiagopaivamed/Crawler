@@ -120,6 +120,45 @@ namespace Crawler.Controllers
                 dadosMapa.QuantidadeTotal = categoriaRepository.GetTotal(categoria);
             }
 
+            return Json(dadosMapa, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult GetMapDataWithStartDate(string categoria, string dataInicio)
+        {
+            DadosMapa dadosMapa = new DadosMapa();
+            DateTime di = DateTime.ParseExact(dataInicio, "dd/MM/yyyy", null);
+
+            dadosMapa.Quantidade = categoriaRepository.GetTotalByCategoryWithStartDate(categoria, di);
+            dadosMapa.Codigos = estadoRepository.GetStatesCodesByCategory(categoria);
+            dadosMapa.QuantidadeTotal = categoriaRepository.GetTotalWithStartDate(categoria, di);
+
+            return Json(dadosMapa, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult GetMapDataWithEndDate(string categoria, string dataFim)
+        {
+            DadosMapa dadosMapa = new DadosMapa();
+            DateTime df = DateTime.ParseExact(dataFim, "dd/MM/yyyy", null);
+
+            dadosMapa.Quantidade = categoriaRepository.GetTotalByCategoryWithEndDate(categoria, df);
+            dadosMapa.Codigos = estadoRepository.GetStatesCodesByCategory(categoria);
+            dadosMapa.QuantidadeTotal = categoriaRepository.GetTotalWithEndDate(categoria, df);
+
+            return Json(dadosMapa, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult GetMapDataWithBetweenDates(string categoria, string dataInicio, string dataFim)
+        {
+            DadosMapa dadosMapa = new DadosMapa();
+            DateTime di = DateTime.ParseExact(dataInicio, "dd/MM/yyyy", null);
+            DateTime df = DateTime.ParseExact(dataFim, "dd/MM/yyyy", null);
+
+            dadosMapa.Quantidade = categoriaRepository.GetTotalByCategoryBetweenDates(categoria, di, df);
+            dadosMapa.Codigos = estadoRepository.GetStatesCodesByCategory(categoria);
+            dadosMapa.QuantidadeTotal = categoriaRepository.GetTotalBetweenDates(categoria, di, df);
 
             return Json(dadosMapa, JsonRequestBehavior.AllowGet);
 
@@ -162,7 +201,46 @@ namespace Crawler.Controllers
             return Json(dadosGraficos, JsonRequestBehavior.AllowGet);
 
         }
-        
+
+        public JsonResult GetTotalByCategoryWithStartDate(string categoria, string dataInicio)
+        {
+            DadosGrafico dadosGraficos = new DadosGrafico();
+            DateTime di = DateTime.ParseExact(dataInicio, "dd/MM/yyyy", null);
+
+            dadosGraficos.Quantidade = categoriaRepository.GetTotalByCategoryWithStartDate(categoria, di);
+            dadosGraficos.Siglas = estadoRepository.GetStatesAcronymsByCategory(categoria);
+
+
+            return Json(dadosGraficos, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult GetTotalByCategoryWithEndtDate(string categoria, string dataFim)
+        {
+            DadosGrafico dadosGraficos = new DadosGrafico();
+            DateTime df = DateTime.ParseExact(dataFim, "dd/MM/yyyy", null);
+
+            dadosGraficos.Quantidade = categoriaRepository.GetTotalByCategoryWithEndDate(categoria, df);
+            dadosGraficos.Siglas = estadoRepository.GetStatesAcronymsByCategory(categoria);
+
+
+            return Json(dadosGraficos, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetTotalByCategoryBetweenDates(string categoria, string dataInicio, string dataFim)
+        {
+            DadosGrafico dadosGraficos = new DadosGrafico();
+            DateTime di = DateTime.ParseExact(dataInicio, "dd/MM/yyyy", null);
+            DateTime df = DateTime.ParseExact(dataFim, "dd/MM/yyyy", null);
+
+            dadosGraficos.Quantidade = categoriaRepository.GetTotalByCategoryBetweenDates(categoria, di, df);
+            dadosGraficos.Siglas = estadoRepository.GetStatesAcronymsByCategory(categoria);
+
+
+            return Json(dadosGraficos, JsonRequestBehavior.AllowGet);
+        }
+
+
         public ActionResult GraficoTemporal()
         {
             ViewBag.Categorias = new SelectList(categoriaRepository.GetAllCategories(), "CategoriaId", "Nome");

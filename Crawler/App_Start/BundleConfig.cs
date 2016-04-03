@@ -16,7 +16,6 @@ namespace Crawler
                         "~/Scripts/sweetalert2.min.js",
                         "~/Scripts/Auto.js",
                         "~/Scripts/DropDownLists.js"
-                        
                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/graficos").Include(
@@ -36,10 +35,8 @@ namespace Crawler
                "~/Scripts/Mapa.js"
                       ));
 
-            bundles.Add(new ScriptBundle("~/bundles/Calendario").Include(
-              "~/Scripts/bootstrap-datepicker.min.js",
-              "~/Scripts/bootstrap-datepicker.pt-BR.min.js",
-              "~/Scripts/Datepicker.js",
+            bundles.Add(new ScriptBundle("~/bundles/GraficoLinha").Include(
+              
               "~/Scripts/GraficoLinha.js"
                      ));
 
@@ -66,6 +63,9 @@ namespace Crawler
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap-datepicker.min.js",
+                      "~/Scripts/bootstrap-datepicker.pt-BR.min.js",
+                      "~/Scripts/Datepicker.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
