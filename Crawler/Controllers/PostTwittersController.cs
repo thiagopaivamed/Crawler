@@ -9,11 +9,17 @@ namespace Crawler.Controllers
 {
     public class PostTwittersController : Controller
     {
+        #region Variaveis
+
         private TwitterServiceRepository twitterServiceRepository = new TwitterServiceRepository();
         private PostTwitterRepository postTwitterRepository = new PostTwitterRepository();
         private CategoriaRepository categoriaRepository = new CategoriaRepository();
         private EstadoRepository estadoRepository = new EstadoRepository();
         private const int tweetsPorPagina = 500;
+
+        #endregion
+
+        #region Construtores
 
         public PostTwittersController() { }
 
@@ -27,6 +33,10 @@ namespace Crawler.Controllers
             categoriaRepository = _categoriaRepository;
             estadoRepository = _estadoRepository;
         }
+
+        #endregion
+        
+        #region Coletas de dados
 
         public ActionResult Index(int? pagina)
         {
@@ -94,6 +104,10 @@ namespace Crawler.Controllers
 
             return View("Index", postTwitterRepository.GetAll().ToPagedList(numeroPagina, tweetsPorPagina));
         }
+
+        #endregion
+
+        #region Mapa
 
         public ActionResult Mapa()
         {
@@ -175,6 +189,9 @@ namespace Crawler.Controllers
             return Json(dadosViolenciaGrafico, JsonRequestBehavior.AllowGet);
         }
 
+        #endregion
+
+        #region Gráfico de barras
 
         [HttpGet]
         public ActionResult Grafico()
@@ -240,6 +257,9 @@ namespace Crawler.Controllers
             return Json(dadosGraficos, JsonRequestBehavior.AllowGet);
         }
 
+        #endregion
+
+        #region Gráfico de Linha
 
         public ActionResult GraficoTemporal()
         {
@@ -262,11 +282,19 @@ namespace Crawler.Controllers
             return Json(dadosGraficoLinha, JsonRequestBehavior.AllowGet);
         }
 
+        #endregion
+
+        #region Autocomplete categorias
+
         [HttpGet]
         public ActionResult GetCategories()
         {
             return Json((categoriaRepository.GetAllCategories()), JsonRequestBehavior.AllowGet);
         }
+
+        #endregion
+
+        #region Destruição de variáveis instanciadas
 
         protected override void Dispose(bool disposing)
         {
@@ -279,5 +307,7 @@ namespace Crawler.Controllers
             }
             base.Dispose(disposing);
         }
+
+        #endregion
     }
 }

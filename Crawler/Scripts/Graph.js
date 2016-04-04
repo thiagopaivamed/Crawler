@@ -85,29 +85,30 @@
                 });
             },
 
-            complete: function () {
-                sweetAlert({
-                    title: 'Processando dados',
-                    html: '</br><strong>Processo concluido</strong></br></br></br>',
-                    type: 'success',
-                    showConfirmButton: false,
-                    allowOutsideClick: false,
-                    timer: 1500
-                });
-            },
-
             success: function (result) {
-                if (result == null) {
+
+                if (result.Quantidade.length == 0 || result.Quantidade == null) {
                     sweetAlert({
                         title: 'Erro no processamento de dados',
                         html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
-                        type: 'success',
-                        showConfirmButton: true
+                        type: 'error',
+                        confirmButtonText: 'Entendi !',
+                        confirmButtonColor: "#008cba"
                     });
                 }
 
                 else {
+
                     GerarGrafico(result.Quantidade, result.Siglas);
+
+                    sweetAlert({
+                        title: 'Processando dados',
+                        html: '</br><strong>Processo concluido</strong></br></br></br>',
+                        type: 'success',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        timer: 1500
+                    });
                 }
             },
             error: function () {
@@ -146,29 +147,30 @@
                 });
             },
 
-            complete: function () {
-                sweetAlert({
-                    title: 'Processando dados',
-                    html: '</br><strong>Processo concluido</strong></br></br></br>',
-                    type: 'success',
-                    showConfirmButton: false,
-                    allowOutsideClick: false,
-                    timer: 1500
-                });
-            },
-
             success: function (result) {
-                if (result == null) {
+
+                if (result.Quantidade.length == 0 || result.Quantidade == null) {
                     sweetAlert({
                         title: 'Erro no processamento de dados',
                         html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
-                        type: 'success',
-                        showConfirmButton: true
+                        type: 'error',
+                        confirmButtonText: 'Entendi !',
+                        confirmButtonColor: "#008cba"
                     });
                 }
 
                 else {
+
                     GerarGrafico(result.Quantidade, result.Siglas);
+
+                    sweetAlert({
+                        title: 'Processando dados',
+                        html: '</br><strong>Processo concluido</strong></br></br></br>',
+                        type: 'success',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        timer: 1500
+                    });
                 }
             },
             error: function () {
@@ -208,30 +210,30 @@
                 });
             },
 
-            complete: function () {
-                sweetAlert({
-                    title: 'Processando dados',
-                    html: '</br><strong>Processo concluido</strong></br></br></br>',
-                    type: 'success',
-                    showConfirmButton: false,
-                    allowOutsideClick: false,
-                    timer: 1500
-                });
-            },
-
             success: function (result) {
-                if (result == null) {
+               
+                if (result.Quantidade.length == 0 || result.Quantidade == null) {
                     sweetAlert({
                         title: 'Erro no processamento de dados',
                         html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
-                        type: 'success',
-                        showConfirmButton: true
+                        type: 'error',
+                        confirmButtonText: 'Entendi !',
+                        confirmButtonColor: "#008cba"
                     });
                 }
 
                 else {
-
+                    
                     GerarGrafico(result.Quantidade, result.Siglas);
+                    
+                    sweetAlert({
+                        title: 'Processando dados',
+                        html: '</br><strong>Processo concluido</strong></br></br></br>',
+                        type: 'success',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        timer: 1500
+                    });
                 }
             },
             error: function () {

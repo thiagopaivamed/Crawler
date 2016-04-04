@@ -61,31 +61,28 @@
                         allowOutsideClick: false
                     });
                 },
-                
-                complete: function () {
-                    sweetAlert({
-                        title: 'Processando dados',
-                        html: '</br><strong>Processo concluido</strong></br></br></br>',
-                        type: 'success',
-                        showConfirmButton: false,
-                        allowOutsideClick: false,
-                        timer: 1500
-                    });
-                },
 
                 success: function (dados) {
                     
-                    if (result == null) {
+                    if (dados.Quantidade.length <= 0) {
                         sweetAlert({
                             title: 'Erro no processamento de dados',
                             html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
-                            type: 'success',
+                            type: 'error',
                             showConfirmButton: true
                         });
                     }
 
                     else {
                         GerarGrafico(dados, categoria, dataInicio, dataFim, estado);
+                        sweetAlert({
+                            title: 'Processando dados',
+                            html: '</br><strong>Processo concluido</strong></br></br></br>',
+                            type: 'success',
+                            showConfirmButton: false,
+                            allowOutsideClick: false,
+                            timer: 1500
+                        });
                     }
                 },
                 error: function () {

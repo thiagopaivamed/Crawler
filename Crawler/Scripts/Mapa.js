@@ -1,6 +1,5 @@
-﻿$(function ()
-{
-
+﻿$(function () {
+    
     var url = '/PostTwitters/GetMapData';
     var dados;
     var categoria = $("#CategoriasViolencia option:selected").text();
@@ -9,7 +8,7 @@
         url: url,
         type: 'GET',
         data: { categoria: categoria },
-        
+
         beforeSend: function () {
             sweetAlert({
                 title: 'Processando dados',
@@ -30,22 +29,29 @@
                 timer: 1000
             });
         },
-        
-        success: function (data)
-        {
+
+        success: function (data) {
             dados = data;
         },
-        error: function (){ }
+        error: function () {
+            sweetAlert({
+                title: 'Erro',
+                html: '<strong>Não foi possível processar os dados</strong>',
+                type: 'error',
+                confirmButtonText: 'Entendi !',
+                confirmButtonColor: "#008cba"
+            });
+        }
     });
 
-    $("#btnGerarMapa").on('click', function ()
-    {
+    $("#btnGerarMapa").on('click', function () {
         categoria = $("#CategoriasViolencia option:selected").text();
         var dataInicioMapa = $("#DataInicioMapa").val();
         var dataFimMapa = $("#DataFimMapa").val();
 
+        // Sem datas especificadas
         if (dataInicioMapa.length <= 0 && dataFimMapa.length <= 0) {
-            
+
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -73,17 +79,26 @@
                 },
 
                 success: function (data) {
+
                     dados = data;
                 },
                 error: function () {
+                    sweetAlert({
+                        title: 'Erro',
+                        html: '<strong>Não foi possível processar os dados</strong>',
+                        type: 'error',
+                        confirmButtonText: 'Entendi !',
+                        confirmButtonColor: "#008cba"
+                    });
                 }
             });
 
-        }
-
+        }// fim if sem datas especificadas
+        
+         // Com data de início especificadas
         else if (dataInicioMapa.length >= 0 && dataFimMapa.length <= 0) {
             url = '/PostTwitters/GetMapDataWithStartDate';
-            
+
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -102,29 +117,47 @@
                     });
                 },
 
-                complete: function () {
-                    sweetAlert({
-                        title: 'Processando dados',
-                        html: '</br><strong>Processo concluido</strong></br></br></br>',
-                        type: 'success',
-                        showConfirmButton: false,
-                        allowOutsideClick: false,
-                        timer: 1000
-                    });
-                },
-
                 success: function (data) {
-                    dados = data;
+
+                    if (data.Quantidade.length == 0 || data.Quantidade == null) {
+                        sweetAlert({
+                            title: 'Erro no processamento de dados',
+                            html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
+                            type: 'error',
+                            confirmButtonText: 'Entendi !',
+                            confirmButtonColor: "#008cba"
+                        });
+                    }
+
+                    else {
+                        dados = data;
+                        sweetAlert({
+                            title: 'Processando dados',
+                            html: '</br><strong>Processo concluido</strong></br></br></br>',
+                            type: 'success',
+                            showConfirmButton: false,
+                            allowOutsideClick: false,
+                            timer: 1500
+                        });
+                    }
                 },
                 error: function () {
+                    sweetAlert({
+                        title: 'Erro',
+                        html: '<strong>Não foi possível processar os dados</strong>',
+                        type: 'error',
+                        confirmButtonText: 'Entendi !',
+                        confirmButtonColor: "#008cba"
+                    });
                 }
             });
 
-        }
+        }// fim else if Com data de início especificadas
         
+        // Com data de fim especificada
         else if (dataInicioMapa.length <= 0 && dataFimMapa.length >= 0) {
             url = '/PostTwitters/GetMapDataWithEndDate';
-            
+
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -143,28 +176,46 @@
                     });
                 },
 
-                complete: function () {
-                    sweetAlert({
-                        title: 'Processando dados',
-                        html: '</br><strong>Processo concluido</strong></br></br></br>',
-                        type: 'success',
-                        showConfirmButton: false,
-                        allowOutsideClick: false,
-                        timer: 1000
-                    });
-                },
-
                 success: function (data) {
-                    dados = data;
+
+                    if (data.Quantidade.length == 0 || data.Quantidade == null) {
+                        sweetAlert({
+                            title: 'Erro no processamento de dados',
+                            html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
+                            type: 'error',
+                            confirmButtonText: 'Entendi !',
+                            confirmButtonColor: "#008cba"
+                        });
+                    }
+
+                    else {
+                        dados = data;
+                        sweetAlert({
+                            title: 'Processando dados',
+                            html: '</br><strong>Processo concluido</strong></br></br></br>',
+                            type: 'success',
+                            showConfirmButton: false,
+                            allowOutsideClick: false,
+                            timer: 1500
+                        });
+                    }
                 },
                 error: function () {
+                    sweetAlert({
+                        title: 'Erro',
+                        html: '<strong>Não foi possível processar os dados</strong>',
+                        type: 'error',
+                        confirmButtonText: 'Entendi !',
+                        confirmButtonColor: "#008cba"
+                    });
                 }
             });
-        }
+        }// fim else if Com data de fim especificada
 
+        // Com data de início e fim especificadas
         else {
             url = '/PostTwitters/GetMapDataWithBetweenDates';
-            
+
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -184,25 +235,42 @@
                     });
                 },
 
-                complete: function () {
-                    sweetAlert({
-                        title: 'Processando dados',
-                        html: '</br><strong>Processo concluido</strong></br></br></br>',
-                        type: 'success',
-                        showConfirmButton: false,
-                        allowOutsideClick: false,
-                        timer: 1000
-                    });
-                },
-
                 success: function (data) {
-                    dados = data;
+
+                    if (data.Quantidade.length == 0 || data.Quantidade == null) {
+                        sweetAlert({
+                            title: 'Erro no processamento de dados',
+                            html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
+                            type: 'error',
+                            confirmButtonText: 'Entendi !',
+                            confirmButtonColor: "#008cba"
+                        });
+                    }
+
+                    else {
+                        dados = data;
+                        sweetAlert({
+                            title: 'Processando dados',
+                            html: '</br><strong>Processo concluido</strong></br></br></br>',
+                            type: 'success',
+                            showConfirmButton: false,
+                            allowOutsideClick: false,
+                            timer: 1500
+                        });
+                    }
                 },
                 error: function () {
+                    sweetAlert({
+                        title: 'Erro',
+                        html: '<strong>Não foi possível processar os dados</strong>',
+                        type: 'error',
+                        confirmButtonText: 'Entendi !',
+                        confirmButtonColor: "#008cba"
+                    });
                 }
             });
-            
-        }
+
+        }// fim else Com data de início e fim especificadas
     });
 
 
@@ -218,23 +286,18 @@
         selectedColor: '#27ae60',
         showTooltip: true,
 
-        onLabelShow: function (event, label, code)
-        {
-            
-            for (var i = 0; i <= dados.Codigos.length; i++)
-            {
-                if (dados.Codigos[i] == code)
-                {
-                    if (dados.Quantidade[code - 1] != "")
-                    {
+        onLabelShow: function (event, label, code) {
+
+            for (var i = 0; i <= dados.Codigos.length; i++) {
+                if (dados.Codigos[i] == code) {
+                    if (dados.Quantidade[code - 1] != "") {
                         label[0].innerHTML = "<div style='margin: auto;padding: 5px;'>" + "<center><strong>Aproximadamente " + ((dados.Quantidade[code - 1] / dados.QuantidadeTotal) * 100).toFixed(2) + "% das ocorrências de " + (categoria.toLowerCase()) + "</br> acontecem em " + label[0].innerHTML + "</br> " + "</strong></center>" + "</div>";
                     }//fim else
 
-                    else
-                    {
+                    else {
                         label[0].innerHTML = "<div style='margin: auto;padding: 5px;'>" + "<center><strong>Sem dados dispóniveis a respeito de " + (categoria.toLowerCase()) + "</br> em " + label[0].innerHTML + "</br> " + "</strong></center>" + "</div>";
                     }// fim else
-                    
+
                 }// fim if
             }// fim for
 
@@ -245,8 +308,7 @@
         }
     });
 
-    function ConstruirGrafico(code)
-    {
+    function ConstruirGrafico(code) {
 
         $.jqplot.config.enablePlugins = true;
 
@@ -256,8 +318,7 @@
             url: url,
             type: 'GET',
             data: { codigo: code },
-            success: function (data)
-            {
+            success: function (data) {
                 if (data == null) {
                     sweetAlert({
                         title: 'Erro no processamento de dados',
@@ -275,8 +336,7 @@
         });
     }
 
-    function GerarGrafico(quantidade, categoria, estado)
-    {
+    function GerarGrafico(quantidade, categoria, estado) {
         $.jqplot('GraficoViolencia', [quantidade], {
             seriesColors: ["#95a5a6"],
             animate: true,
