@@ -7,34 +7,38 @@
     ViewBag.Title = "Coletor";
 }
 
-<div>
-    <br />
-    <br />
-
+<div class="container">
     <div>
-        @using (Ajax.BeginForm("Procurar", "PostTwitters", new AjaxOptions { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "divTweets"}))
-        {
-            <div class="form-group col-md-4">
-                @Html.Display("Escolha o estado")
-                <div class="col-md-10">
-                    @Html.DropDownList("EstadoId", null, htmlAttributes: new { @id = "estados" })
+        <br />
+        <br />
+
+        <div>
+            @using (Ajax.BeginForm("Procurar", "PostTwitters", new AjaxOptions { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "divTweets" }))
+            {
+                <div class="form-group col-md-4">
+                    @Html.Display("Escolha o estado")
+                    <div class="col-md-10">
+                        @Html.DropDownList("EstadoId", null, htmlAttributes: new { @id = "estados" })
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4 ">
-                <div class="input-group">
-                    @Html.TextBox("termo", null, new { @class = "form-control", @id = "termo", @placeholder = "Digite o que procura" })
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                    </span>
+                <div class="col-md-4 ">
+                    <div class="input-group">
+                        @Html.TextBox("termo", null, new { @class = "form-control", @id = "termo", @placeholder = "Digite o que procura" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
+
+
+    <br /><br />
+
+    @Html.Partial("Tweets", Model)
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { pagina = page }))
+
+
 </div>
-
-
-<br /><br />
-
-@Html.Partial("Tweets", Model)
-
-@Html.PagedListPager(Model, page => Url.Action("Index", new { pagina = page }))

@@ -16,22 +16,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img src="~/Content/Images/logo.png" height="50px" width="75px" class="img-responsive" />
+                <a href="@Url.Action("Home", "PostTwitters")"><img src="~/Content/Images/logo.png" height="75px" width="150px" class="img-responsive"/></a>
 
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav" style="font-weight: bold;">
                     <li>@Html.ActionLink("Coletor", "Index", "PostTwitters")</li>
-                    <li>@Html.ActionLink("Gráfico", "Grafico", "PostTwitters")</li>
+                    <li>@Html.ActionLink("Gráfico Barras", "Grafico", "PostTwitters")</li>
                     <li>@Html.ActionLink("Gráfico Temporal", "GraficoTemporal", "PostTwitters")</li>
-                    <li>@Html.ActionLink("Mapa", "Mapa", "PostTwitters")</li>
+                    <li>@Html.ActionLink("Mapa da Violência", "Mapa", "PostTwitters")</li>
                 </ul>
             </div>
         </div>
     </div>
     <br />
     <br />
-    <div class="container body-content">
+    <div class="">
         @RenderBody()
     </div>
     

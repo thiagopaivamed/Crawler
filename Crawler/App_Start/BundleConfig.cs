@@ -36,7 +36,6 @@ namespace Crawler
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/GraficoLinha").Include(
-              
               "~/Scripts/GraficoLinha.js"
                      ));
 

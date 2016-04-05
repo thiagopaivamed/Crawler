@@ -2,45 +2,48 @@
     ViewBag.Title = "Grafico Temporal";
 }
 
-<br />
-<br />
-<div>
-    <div class="col-md-2">
-        @Html.DropDownList("Categorias", null, htmlAttributes: new { @id = "categoriasDDL" })
-    </div>
-</div>
-
-<div>
-    <div class="col-md-3">
-        @Html.DropDownList("EstadoId", null, htmlAttributes: new { @id = "estados" })
-    </div>
-</div>
-
-<div>
-    <div class="col-md-4">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="De" id="DataInicio" data-placement="top" title="DD/MM/AAAA">
-            <span class="input-group-addon glyphicon glyphicon-calendar"></span>
-            <input type="text" class="form-control" placeholder="Até" id="DataFim" data-placement="top" title="DD/MM/AAAA">
+<div class="container">
+    <br />
+    <br />
+    <div>
+        <div class="col-md-2">
+            @Html.DropDownList("Categorias", null, htmlAttributes: new { @id = "categoriasDDL" })
         </div>
     </div>
-</div>
 
-<div class="col-md-2">
-    <input type="submit" value="Gerar Gráfico" class="btn btn-outline-primary" id="btnGerarGrafico" />
-</div>
+    <div>
+        <div class="col-md-3">
+            @Html.DropDownList("EstadoId", null, htmlAttributes: new { @id = "estados" })
+        </div>
+    </div>
+
+    <div>
+        <div class="col-md-4">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="De" id="DataInicio" data-placement="top" title="DD/MM/AAAA">
+                <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+                <input type="text" class="form-control" placeholder="Até" id="DataFim" data-placement="top" title="DD/MM/AAAA">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <input type="submit" value="Gerar Gráfico" class="btn btn-outline-primary" id="btnGerarGrafico" />
+    </div>
 
 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
 
 
-<div id="divGraficos">
-    <div id="GraficoTemporal" style="width: 90%; height: auto"></div>
+    <div id="divGraficos">
+        <div id="GraficoTemporal" style="width: 90%; height: auto"></div>
+    </div>
+
 </div>
 
 

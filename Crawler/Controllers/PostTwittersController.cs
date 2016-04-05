@@ -35,7 +35,16 @@ namespace Crawler.Controllers
         }
 
         #endregion
-        
+
+        #region Pagina Inicial
+
+        public ActionResult Home()
+        {
+            return View();
+        }
+
+        #endregion
+
         #region Coletas de dados
 
         public ActionResult Index(int? pagina)
