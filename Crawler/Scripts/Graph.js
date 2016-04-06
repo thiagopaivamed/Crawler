@@ -294,7 +294,11 @@
 
             highlighter: {
                 showTooltip: true,
-                tooltipFade: true
+                tooltipFade: true,
+                tooltipContentEditor: function (str, seriesIndex, pointIndex) {
+                    return quantidade[pointIndex] + " ocorrências";
+
+                }
             },
 
             axes:

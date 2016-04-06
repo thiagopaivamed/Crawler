@@ -156,7 +156,11 @@
 
                 highlighter: {
                     showTooltip: true,
-                    tooltipFade: true
+                    tooltipFade: true,
+                    tooltipContentEditor: function (str, seriesIndex, pointIndex) {
+                        return "Data : " + datas[pointIndex] + "</br>" + "Ocorrências : " + dados.Quantidade[pointIndex];
+
+                        }
                 },
 
                 axes:

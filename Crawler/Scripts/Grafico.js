@@ -6,7 +6,7 @@
     $.ajax({
         url: url,
         type: 'GET',
-        
+
         beforeSend: function () {
             sweetAlert({
                 title: 'Processando dados',
@@ -47,33 +47,33 @@
             seriesColors: ["#95a5a6"],
             animate: true,
             title: '<h4><strong>Assalto no Brasil</strong></h4>',
-            
+
             grid:
             {
                 drawBorder: false,
                 borderWidth: 0,
                 shadow: false
             },
-            
+
             series: [
-            {
-                pointLabels:
-                {
-                    show: true,
-                    labels: [quantidade],
-                    escapeHTML: true
-                }
-            }
+             {
+                 pointLabels:
+                 {
+                     show: true,
+                     labels: [quantidade],
+                     escapeHTML: true
+                 }
+             }
             ],
 
             seriesDefaults:
             {
                 renderer: $.jqplot.BarRenderer,
-                pointLabels: { show: true, formatString: '%d'},
+                pointLabels: { show: true, formatString: '%d' },
                 rendererOptions:
                 {
                     fillToZero: true
-                    
+
                 }
             },
 
@@ -83,17 +83,21 @@
                 placement: 'outside',
                 showLabels: true,
                 labels: ["Quantidade"]
-                
+
             },
-            
+
             highlighter: {
                 showTooltip: true,
-                tooltipFade: true
+                tooltipFade: true,
+                tooltipContentEditor: function (str, seriesIndex, pointIndex) {
+                    return quantidade[pointIndex] + " ocorrências";
+
+                }
             },
 
             axes:
             {
-                tickOptions:{showGridline:false},
+                tickOptions: { showGridline: false },
                 xaxis:
                 {
                     renderer: $.jqplot.CategoryAxisRenderer,
@@ -101,13 +105,14 @@
                     ticks: siglas
                 }
             },
+
             axesDefaults: {
                 rendererOptions: {
                     baselineWidth: 1.5,
                     drawBaseline: false
                 }
             },
-            
+
         });
     }
 });
