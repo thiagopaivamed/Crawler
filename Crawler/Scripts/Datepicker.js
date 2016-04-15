@@ -1,7 +1,7 @@
 ﻿$('#DataInicio, #DataFim, #DataInicioGB, #DataFimGB, #DataInicioMapa, #DataFimMapa').datepicker({
     format: "dd/mm/yyyy",
     startDate: "25/01/2016",
-    endDate: "today",
+    endDate: "10/04/2016",
     language: "pt-BR",
     autoclose: true,
     todayHighlight: true
