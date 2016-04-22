@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Crawler</title>
+    <title>SMVB</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -22,9 +22,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav" style="font-weight: bold;">
                     <li>@Html.ActionLink("Coletor", "Index", "PostTwitters")</li>
-                    <li>@Html.ActionLink("Gráfico Barras", "Grafico", "PostTwitters")</li>
-                    <li>@Html.ActionLink("Gráfico Temporal", "GraficoTemporal", "PostTwitters")</li>
                     <li>@Html.ActionLink("Mapa da Violência", "Mapa", "PostTwitters")</li>
+                    <li>@Html.ActionLink("Tipos de Violência", "Grafico", "PostTwitters")</li>
+                    <li>@Html.ActionLink("Violência por estado", "GraficoTemporal", "PostTwitters")</li>
                 </ul>
             </div>
         </div>

@@ -66,7 +66,7 @@
                     
                     if (dados.Quantidade.length <= 0) {
                         sweetAlert({
-                            title: 'Erro no processamento de dados',
+                            title: '',
                             html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
                             type: 'error',
                             showConfirmButton: true
@@ -145,15 +145,6 @@
                     }
                 },
 
-                legend: {
-                    show: true,
-                    location: 'e',
-                    placement: 'outside',
-                    showLabels: true,
-                    labels: ["Quantidade"]
-
-                },
-
                 highlighter: {
                     showTooltip: true,
                     tooltipFade: true,
@@ -180,6 +171,11 @@
                             textAlign: 'center'
                             
                         }
+                    },
+                    
+                    yaxis: {
+                        label: 'Quantidade de tweets',
+                        labelRenderer: $.jqplot.CanvasAxisLabelRenderer
                     }
                 },
 

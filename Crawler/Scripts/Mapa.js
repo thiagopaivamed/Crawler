@@ -95,7 +95,7 @@
 
         }// fim if sem datas especificadas
         
-         // Com data de início especificadas
+            // Com data de início especificadas
         else if (dataInicioMapa.length >= 0 && dataFimMapa.length <= 0) {
             url = '/PostTwitters/GetMapDataWithStartDate';
 
@@ -121,7 +121,7 @@
 
                     if (data.Quantidade.length == 0 || data.Quantidade == null) {
                         sweetAlert({
-                            title: 'Erro no processamento de dados',
+                            title: '',
                             html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
                             type: 'error',
                             confirmButtonText: 'Entendi !',
@@ -154,7 +154,7 @@
 
         }// fim else if Com data de início especificadas
         
-        // Com data de fim especificada
+            // Com data de fim especificada
         else if (dataInicioMapa.length <= 0 && dataFimMapa.length >= 0) {
             url = '/PostTwitters/GetMapDataWithEndDate';
 
@@ -180,7 +180,7 @@
 
                     if (data.Quantidade.length == 0 || data.Quantidade == null) {
                         sweetAlert({
-                            title: 'Erro no processamento de dados',
+                            title: '',
                             html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
                             type: 'error',
                             confirmButtonText: 'Entendi !',
@@ -212,7 +212,7 @@
             });
         }// fim else if Com data de fim especificada
 
-        // Com data de início e fim especificadas
+            // Com data de início e fim especificadas
         else {
             url = '/PostTwitters/GetMapDataWithBetweenDates';
 
@@ -239,7 +239,7 @@
 
                     if (data.Quantidade.length == 0 || data.Quantidade == null) {
                         sweetAlert({
-                            title: 'Erro no processamento de dados',
+                            title: '',
                             html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
                             type: 'error',
                             confirmButtonText: 'Entendi !',
@@ -280,12 +280,11 @@
         borderColor: '#fff',
         borderOpacity: 0.25,
         borderWidth: 1,
-        color: '#2980b9',
+        color: "#2980b9",
         enableZoom: false,
         hoverColor: '#2c3e50',
         selectedColor: '#27ae60',
         showTooltip: true,
-
         onLabelShow: function (event, label, code) {
 
             for (var i = 0; i <= dados.Codigos.length; i++) {
@@ -307,105 +306,106 @@
             ConstruirGrafico(code);
         }
     });
+  
 
     function ConstruirGrafico(code) {
 
-        $.jqplot.config.enablePlugins = true;
+            $.jqplot.config.enablePlugins = true;
 
-        var url = '/PostTwitters/GetViolenceData';
+            var url = '/PostTwitters/GetViolenceData';
 
-        $.ajax({
-            url: url,
-            type: 'GET',
-            data: { codigo: code },
-            success: function (data) {
-                if (data == null) {
-                    sweetAlert({
-                        title: 'Erro no processamento de dados',
-                        html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
-                        type: 'success',
-                        showConfirmButton: true
-                    });
-                }
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: { codigo: code },
+                success: function (data) {
+                    if (data == null) {
+                        sweetAlert({
+                            title: '',
+                            html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
+                            type: 'success',
+                            showConfirmButton: true
+                        });
+                    }
 
-                else {
-                    GerarGrafico(data.Quantidade, data.Categoria, data.Estado);
-                }
-            },
-            error: function () { }
-        });
-    }
+                    else {
+                        GerarGrafico(data.Quantidade, data.Categoria, data.Estado);
+                    }
+                },
+                error: function () { }
+            });
+        }
 
-    function GerarGrafico(quantidade, categoria, estado) {
-        $.jqplot('GraficoViolencia', [quantidade], {
-            seriesColors: ["#95a5a6"],
-            animate: true,
-            title: '<h4><strong>Violência em ' + estado + ' </strong></h4>',
+        function GerarGrafico(quantidade, categoria, estado) {
+            $.jqplot('GraficoViolencia', [quantidade], {
+                seriesColors: ["#95a5a6"],
+                animate: true,
+                title: '<h4><strong>Violência em ' + estado + ' </strong></h4>',
 
-            grid:
-            {
-                drawBorder: false,
-                borderWidth: 0,
-                shadow: false
-            },
-
-            series: [
-            {
-                pointLabels:
+                grid:
                 {
+                    drawBorder: false,
+                    borderWidth: 0,
+                    shadow: false
+                },
+
+                series: [
+                {
+                    pointLabels:
+                    {
+                        show: true,
+                        labels: [quantidade],
+                        escapeHTML: true
+                    }
+                }
+                ],
+
+                seriesDefaults:
+                {
+                    renderer: $.jqplot.BarRenderer,
+                    pointLabels: { show: true, formatString: '%d' },
+                    rendererOptions:
+                    {
+                        fillToZero: true
+
+                    }
+                },
+
+                legend: {
                     show: true,
-                    labels: [quantidade],
-                    escapeHTML: true
-                }
-            }
-            ],
+                    location: 'e',
+                    placement: 'outside',
+                    showLabels: true,
+                    labels: ["Quantidade"]
 
-            seriesDefaults:
-            {
-                renderer: $.jqplot.BarRenderer,
-                pointLabels: { show: true, formatString: '%d' },
-                rendererOptions:
+                },
+
+                highlighter: {
+                    showTooltip: true,
+                    tooltipFade: true,
+                    tooltipContentEditor: function (str, seriesIndex, pointIndex) {
+                        return quantidade[pointIndex] + " ocorrências";
+
+                    }
+                },
+
+                axes:
                 {
-                    fillToZero: true
+                    tickOptions: { showGridline: false },
+                    xaxis:
+                    {
+                        renderer: $.jqplot.CategoryAxisRenderer,
+                        drawMajorGridlines: false,
+                        ticks: categoria
+                    }
+                },
+                axesDefaults: {
+                    rendererOptions: {
+                        baselineWidth: 1.5,
+                        drawBaseline: false
+                    }
+                },
 
-                }
-            },
-
-            legend: {
-                show: true,
-                location: 'e',
-                placement: 'outside',
-                showLabels: true,
-                labels: ["Quantidade"]
-
-            },
-
-            highlighter: {
-                showTooltip: true,
-                tooltipFade: true,
-                tooltipContentEditor: function (str, seriesIndex, pointIndex) {
-                    return quantidade[pointIndex] + " ocorrências";
-
-                }
-            },
-
-            axes:
-            {
-                tickOptions: { showGridline: false },
-                xaxis:
-                {
-                    renderer: $.jqplot.CategoryAxisRenderer,
-                    drawMajorGridlines: false,
-                    ticks: categoria
-                }
-            },
-            axesDefaults: {
-                rendererOptions: {
-                    baselineWidth: 1.5,
-                    drawBaseline: false
-                }
-            },
-
-        }).replot();
-    }
-});
+            }).replot();
+        }
+    });

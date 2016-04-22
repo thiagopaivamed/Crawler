@@ -33,7 +33,7 @@
         },
         error: function () {
             sweetAlert({
-                title: 'Erro',
+                title: '',
                 html: '<strong>Não foi possível processar os dados</strong>',
                 type: 'error',
                 confirmButtonText: 'Entendi !',
@@ -77,15 +77,6 @@
                 }
             },
 
-            legend: {
-                show: true,
-                location: 'e',
-                placement: 'outside',
-                showLabels: true,
-                labels: ["Quantidade"]
-
-            },
-
             highlighter: {
                 showTooltip: true,
                 tooltipFade: true,
@@ -103,6 +94,11 @@
                     renderer: $.jqplot.CategoryAxisRenderer,
                     drawMajorGridlines: false,
                     ticks: siglas
+                },
+                
+                yaxis: {
+                    label: 'Quantidade de tweets',
+                    labelRenderer: $.jqplot.CanvasAxisLabelRenderer
                 }
             },
 
@@ -112,6 +108,8 @@
                     drawBaseline: false
                 }
             },
+            
+
 
         });
     }

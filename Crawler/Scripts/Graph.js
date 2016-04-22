@@ -38,9 +38,9 @@
             success: function (result) {
                 if (result == null) {
                     sweetAlert({
-                        title: 'Erro no processamento de dados',
+                        title: '',
                         html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
-                        type: 'success',
+                        type: 'error',
                         showConfirmButton: true
                     });
                 }
@@ -89,7 +89,7 @@
 
                 if (result.Quantidade.length == 0 || result.Quantidade == null) {
                     sweetAlert({
-                        title: 'Erro no processamento de dados',
+                        title: '',
                         html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
                         type: 'error',
                         confirmButtonText: 'Entendi !',
@@ -151,7 +151,7 @@
 
                 if (result.Quantidade.length == 0 || result.Quantidade == null) {
                     sweetAlert({
-                        title: 'Erro no processamento de dados',
+                        title: '',
                         html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
                         type: 'error',
                         confirmButtonText: 'Entendi !',
@@ -214,7 +214,7 @@
                
                 if (result.Quantidade.length == 0 || result.Quantidade == null) {
                     sweetAlert({
-                        title: 'Erro no processamento de dados',
+                        title: '',
                         html: '</br><strong>Sua pesquisa não retornou resultados.</strong></br></br></br>',
                         type: 'error',
                         confirmButtonText: 'Entendi !',
@@ -283,15 +283,6 @@
                 }
             },
 
-            legend: {
-                show: true,
-                location: 'e',
-                placement: 'outside',
-                showLabels: true,
-                labels: ["Quantidade"]
-
-            },
-
             highlighter: {
                 showTooltip: true,
                 tooltipFade: true,
@@ -309,6 +300,10 @@
                     renderer: $.jqplot.CategoryAxisRenderer,
                     drawMajorGridlines: false,
                     ticks: siglas
+                },
+                yaxis: {
+                    label: 'Quantidade de tweets',
+                    labelRenderer: $.jqplot.CanvasAxisLabelRenderer
                 }
             },
 
