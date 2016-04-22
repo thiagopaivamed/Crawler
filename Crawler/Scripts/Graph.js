@@ -252,7 +252,7 @@
         $.jqplot('grafico', [quantidade], {
             seriesColors: ["#95a5a6"],
             animate: true,
-            title: '<h4><strong>' + categorias + ' no Brasil</strong> </h4>',
+            title: '<h4><strong>' + categorias + ' por região</strong> </h4>',
 
             grid:
             {

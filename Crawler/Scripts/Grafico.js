@@ -46,7 +46,7 @@
         $.jqplot('grafico', [quantidade], {
             seriesColors: ["#95a5a6"],
             animate: true,
-            title: '<h4><strong>Assalto no Brasil</strong></h4>',
+            title: '<h4><strong>Assalto por região</strong></h4>',
 
             grid:
             {
