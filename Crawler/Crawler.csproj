@@ -290,10 +290,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\PostTwitters\Index.cshtml" />
-    <Content Include="Views\PostTwitters\Grafico.cshtml" />
+    <Content Include="Views\PostTwitters\TiposViolencia.cshtml" />
     <Content Include="Views\PostTwitters\Tweets.cshtml" />
-    <Content Include="Views\PostTwitters\Mapa.cshtml" />
-    <Content Include="Views\PostTwitters\GraficoTemporal.cshtml" />
+    <Content Include="Views\PostTwitters\MapaViolencia.cshtml" />
+    <Content Include="Views\PostTwitters\ViolenciaEstado.cshtml" />
     <Content Include="Views\PostTwitters\Home.cshtml" />
   </ItemGroup>
   <ItemGroup>

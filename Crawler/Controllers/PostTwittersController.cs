@@ -118,7 +118,7 @@ namespace Crawler.Controllers
 
         #region Mapa
 
-        public ActionResult Mapa()
+        public ActionResult MapaViolencia()
         {
             ViewBag.CategoriasId = new SelectList(categoriaRepository.GetAllCategories(), "CategoriaId", "Nome");
             return View();
@@ -203,7 +203,7 @@ namespace Crawler.Controllers
         #region Gráfico de barras
 
         [HttpGet]
-        public ActionResult Grafico()
+        public ActionResult TiposViolencia()
         {
             ViewBag.CategoriaId = new SelectList(categoriaRepository.GetAllCategories(), "CategoriaId", "Nome");
             return View();
@@ -270,7 +270,7 @@ namespace Crawler.Controllers
 
         #region Gráfico de Linha
 
-        public ActionResult GraficoTemporal()
+        public ActionResult ViolenciaEstado()
         {
             ViewBag.Categorias = new SelectList(categoriaRepository.GetAllCategories(), "CategoriaId", "Nome");
             ViewBag.EstadoId = new SelectList(estadoRepository.GetAllStates(), "EstadoId", "Nome");
